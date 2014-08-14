@@ -17,4 +17,4 @@ clean:
 	@rm -f exec
 	
 quick: main.o time1.o function.o
-	@g++ -g main.o time1.o function.o -o exec -lSDL -lSDL_ttf -lSDL_image
+	@g++ -g main.o time1.o function.o -o exec -lSDL -lSDL_ttf -lSDL_image -lBox2D
