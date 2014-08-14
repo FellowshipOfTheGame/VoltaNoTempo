@@ -19,4 +19,4 @@ clean:
 	@rm -f exec
 	
 quick: main.o sdl_basics.o time1.o vnt.o 
-	@g++ -g main.o sdl_basics.o time1.o vnt.o -o exec -lSDL2 -lSDL2_ttf -lSDL2_image
+	@g++ -g main.o sdl_basics.o time1.o vnt.o -o exec -lSDL2 -lSDL2_ttf -lSDL2_image -lBox2D
