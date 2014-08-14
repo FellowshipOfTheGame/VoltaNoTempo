@@ -1,0 +1,11 @@
+# Author: Mr Foo Bar
+# Date: 30 March 2055
+
+# CMake minimum version
+cmake_minimum_required(VERSION 2.8)
+
+# Project Name
+project(myproject)
+
+# Add ./src directory
+add_subdirectory(src)

@@ -1,0 +1,13 @@
+Volta-No-Tempo
+==============
+SDL 2   -- Tutorial Site : http://lazyfoo.net/tutorials/SDL/
+==============
+
+==========
+Instalar :
+==========
+> Lib SDL2 :
+sudo apt-get install libsdl2-*      --- Instala a biblioteca SDL 2
+
+> Lib Box2d -- Physics for game dev (Collision, Global gravity, others)
+sudo apt-get install -y libbox2d*   --- Instala a biblioteca box2D (biblioteca fisica, para integrar ao projeto -- Ainda não usei)
