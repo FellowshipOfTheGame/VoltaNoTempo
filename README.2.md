@@ -1,6 +1,5 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
 volta-no-tempo
 ==============
 <b>Desenvolvedores</b>:
@@ -18,10 +17,6 @@ VERSION
 =======
 <b>1.01</b><br/>
 
-=======
-VoltaNoTempo
-============
->>>>>>> 8cd8075ace6144451002a3bd67c1be688145e0c7
 =======
 VoltaNoTempo
 ============
