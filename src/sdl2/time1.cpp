@@ -3,6 +3,8 @@
 /* "img/" -- compila no NetBeans*/
 #include "time2.h"
 #include "sdl_basics.h"
+#include "editor_mapa.h"
+
 #include "vnt.h"
 #define NUM_CLONES 3
 #define NUM_MOVIMENTOS 10
@@ -17,6 +19,7 @@ void shift_para_direita(int *vetor_x, int *vetor_y) {
 
 int time1() {
     //SDL2
+    int altura=0;
     int *vetX = (int *) calloc(NUM_CLONES * NUM_MOVIMENTOS, sizeof (int));
     int *vetY = (int *) calloc(NUM_CLONES * NUM_MOVIMENTOS, sizeof (int));
 
@@ -109,14 +112,11 @@ int time1() {
     /// Se continuou todas imagens devem existir
 
     SDL_Rect offset;
-    set_sdlRect(&offset, 120, PLATAFORMA_Y);
-
-    SDL_Rect grama;
-    set_sdlRect(&grama, 0, 350);
-
+    set_sdlRect(&offset, 120, PLATAFORMA_Y); 
 
     SDL_Rect timespace;
-    set_sdlRect(&timespace, 100, 178);
+    altura = 140;    	// Altura da imagem
+    set_sdlRect(&timespace, 100, PLATAFORMA_Y - altura);
 
     SDL_Rect inimigo;
     set_sdlRect(&inimigo, 120, PLATAFORMA_Y);
@@ -125,14 +125,17 @@ int time1() {
     set_sdlRect(&amigo, 120, PLATAFORMA_Y);
 
     SDL_Rect espinhos[2];
-
-    set_sdlRect(&espinhos[0], 400, 138);
-    set_sdlRect(&espinhos[1], 416, 98);
+    altura = 180;    	// Altura da imagem
+    set_sdlRect(&espinhos[0], 400, PLATAFORMA_Y - altura);
+    altura = 220;    	// Altura da imagem
+    set_sdlRect(&espinhos[1], 416, PLATAFORMA_Y - altura);
 
     SDL_Rect botao[2];
 
-    set_sdlRect(&botao[0], 30, 330);
-    set_sdlRect(&botao[1], 210, 330);
+    altura = -10;    	// Altura da imagem
+    set_sdlRect(&botao[0], 30, PLATAFORMA_Y - altura);
+    altura = -10;    	// Altura da imagem
+    set_sdlRect(&botao[1], 210, PLATAFORMA_Y - altura);
 
     int q, ger, i, p, espelho, reg, grav, start, m, r, s;
     int lado, startrad, rad, mirror, u, graviole, l, nap;
@@ -162,7 +165,10 @@ int time1() {
     espelho = 0;
     mirror = 0;
     bool done = false;
-
+	
+	
+ 
+    
     while (!done) {
         if (offset.y >= PLATAFORMA_Y) {
             SDL_Delay(1);
@@ -489,13 +495,16 @@ int time1() {
             return 0;
         }
 
+   external_load_map(&screenSurface);
+
+    //Update the screen
+    SDL_UpdateWindowSurface(window);
+    
 
         // DRAWING STARTS HERE
-        // clear screen
-        SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 255, 255, 255));
 
         // draw bitmap
-        SDL_BlitSurface(linha, 0, screenSurface, &grama);
+        //SDL_BlitSurface(linha, 0, screenSurface, &grama);
         SDL_BlitSurface(tardis, 0, screenSurface, &timespace);
         SDL_SetColorKey(tardis, SDL_TRUE, SDL_MapRGB(tardis->format, 0, 0xFF, 0xFF));
         if (click[12] % 4 == 0) {
@@ -726,6 +735,8 @@ int time1() {
                 SDL_BlitSurface(goodbmp, 0, screenSurface, &amigo);
             }
         }
+        //END OF DRAWING
+        
         //        SDL_Flip(screenSurface);
         SDL_UpdateWindowSurface(window);
 
@@ -758,6 +769,7 @@ int time1() {
     freeSDL_Surface(&spikeImg[1]);
     freeSDL_Surface(&buttonImg[0]);
     freeSDL_Surface(&buttonImg[1]);
+
     bmp = NULL;
     tardis = NULL;
     badbmp = NULL;
@@ -767,7 +779,7 @@ int time1() {
     buttonImg[0] = NULL;
     buttonImg[1] = NULL;
 
-
+	
     free(click);
     free(vetX);
     free(vetY);

@@ -6,7 +6,7 @@
 #define MAX_CONT_JUMP 2          // Pulo seguidos       
 #define OFFSET_MOVE_Y 30        // movimento do pulo
 #define OFFSET_MOVE_X 10        // movimento direita/esquerda
-#define PLATAFORMA_Y 316    /// altura da plataforma (onde o player anda)
+#define PLATAFORMA_Y 410   /// 216 altura da plataforma (onde o player anda)
 #define WAIT 100            /// FLOAT   -- Tempo de espera
 #define SCREEN_WIDTH 600           /// INT     -- Largura da tela
 #define SCREEN_HEIGHT 450          /// INT     -- Altura da tela
