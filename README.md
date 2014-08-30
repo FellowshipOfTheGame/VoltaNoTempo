@@ -8,6 +8,6 @@ University of São Paulo (USP)
 
 <br/><br/>
 Tools Used :
-- SDL2 - http://www.libsdl.org/download-2.0.php
-
+- Simple DirectMedia Layer (SDL) - http://www.libsdl.org/index.php
+- 
 - Map creator -- https://github.com/lcsvcn/editor_mapas_sdl2
