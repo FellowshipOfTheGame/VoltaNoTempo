@@ -2,8 +2,10 @@
 
 /* SET VALUE TO OFFSET */
 bool set_sdlRect(SDL_Rect *offset, int x, int y) {
-    (*offset).x = x;
-    (*offset).y = y;
+    //(*offset).x = x;
+    offset->x = x;
+   // (*offset).y = y;
+    offset->y = y;
     return true;
 }
 

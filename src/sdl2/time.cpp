@@ -54,12 +54,12 @@ int time() {
 
     // Seta jogadores
     setPlayer(&p0, 10, 10, 10, 10);
-    setPlayer(&e0, 10, 10, 10, 10);
+    //setPlayer(&e0, 10, 10, 10, 10);
 
     // Seta objetos
     setObject(&o0, 10, 10, true);
-	setObject(&o1, 10, 10, true);
-	setObject(&o2, 10, 10, true);
+	//setObject(&o1, 10, 10, true);
+	//setObject(&o2, 10, 10, true);
     
 
     //SDL2
@@ -71,7 +71,7 @@ int time() {
     SDL_Window* window = NULL;
 
     // The surface contained by the window
-    SDL_Surface* screenSurface = NULL;
+    SDL_Surface* screen = NULL;
 
     //Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -85,10 +85,10 @@ int time() {
             return -1;
         } else {
             //Get window surface
-            screenSurface = SDL_GetWindowSurface(window);
+            screen = SDL_GetWindowSurface(window);
 
             // Fill the surface white
-            SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));
+            SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF));
 
             // Update the surface
             SDL_UpdateWindowSurface(window);
@@ -100,6 +100,11 @@ int time() {
     }
 
     // load an image
+    SDL_Surface *img = NULL;
+
+    SDL_Rect offset;
+    
+
     SDL_Surface* bmp = NULL;
     SDL_Surface* linha = NULL;
     SDL_Surface* badbmp = NULL;
@@ -154,7 +159,7 @@ int time() {
     }
 
     /// Se continuou todas imagens devem existir
-    SDL_Rect offset;
+
     set_sdlRect(&offset, 120, PLATAFORMA_Y); 
 
     SDL_Rect timespace;
@@ -221,6 +226,7 @@ int time() {
         // Set texture based on current keystate 
         const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 
+        //While key down
         if (currentKeyStates[ SDL_SCANCODE_LEFT ]) {
             SDL_Delay(WAIT);
             click = function_left(&vetor[i], click, &offset, &lado);
@@ -245,10 +251,13 @@ int time() {
             i++;
             vetor[i] = 0;
             switch (event.type) {
+
+            	// Exit SDL
                 case SDL_QUIT:
                     done = true;
                     break;
 
+                // Key pressed
                 case SDL_KEYDOWN:
                 {
                     switch (event.key.keysym.sym) {
@@ -278,6 +287,9 @@ int time() {
             }
 
         }
+
+
+
         if (offset.y < PLATAFORMA_Y) {
             if (reg == 15) {
                 offset.y += 5;
@@ -538,7 +550,7 @@ int time() {
             return 0;
         }
 
-   external_load_map(&screenSurface);
+   external_load_map(&screen);
 
     //Update the screen
     SDL_UpdateWindowSurface(window);
@@ -547,9 +559,9 @@ int time() {
         // DRAWING STARTS HERE
 
         // draw bitmap
-        //SDL_BlitSurface(linha, 0, screenSurface, &grama);
-        SDL_BlitSurface(tardis, 0, screenSurface, &timespace);
-        SDL_SetColorKey(tardis, SDL_TRUE, SDL_MapRGB(tardis->format, 0, 0xFF, 0xFF));
+        //SDL_BlitSurface(linha, 0, screen, &grama);
+        SDL_BlitSurface(tardis, 0, screen, &timespace);
+        SDL_SetColorKey(tardis, SDL_TRUE, SDL_MapRGB(tardis->format, 0xFF, 0xFF, 0xFF));
         if (click[12] % 4 == 0) {
             if (offset.x > 375) {
                 if (offset.y > 70) {
@@ -559,8 +571,8 @@ int time() {
             }
 
             SDL_Surface* spike1 = SDL_LoadBMP("img/spikes1.bmp");
-            SDL_SetColorKey(spike1, SDL_TRUE, SDL_MapRGB(spike1->format, 0, 0xFF, 0xFF));
-            SDL_BlitSurface(spike1, 0, screenSurface, &espinhos[0]);
+            SDL_SetColorKey(spike1, SDL_TRUE, SDL_MapRGB(spike1->format, 0xFF, 0xFF, 0xFF));
+            SDL_BlitSurface(spike1, 0, screen, &espinhos[0]);
 
         }
 
@@ -573,146 +585,146 @@ int time() {
             }
             SDL_Surface* spike1 = SDL_LoadBMP("img/spikes1.bmp");
             SDL_SetColorKey(spike1, SDL_TRUE, SDL_MapRGB(spike1->format, 0xFF, 0xFF, 0xFF));
-            SDL_BlitSurface(spike1, 0, screenSurface, &espinhos[0]);
+            SDL_BlitSurface(spike1, 0, screen, &espinhos[0]);
         }
         SDL_Surface* spike2 = SDL_LoadBMP("img/spikes2.bmp");
         SDL_SetColorKey(spike2, SDL_TRUE, SDL_MapRGB(spike2->format, 0xFF, 0xFF, 0xFF));
-        SDL_BlitSurface(spike2, 0, screenSurface, &espinhos[1]);
+        SDL_BlitSurface(spike2, 0, screen, &espinhos[1]);
 
         SDL_Surface* botao1 = SDL_LoadBMP("img/botao1.bmp");
         SDL_SetColorKey(botao1, SDL_TRUE, SDL_MapRGB(botao1->format, 0xFF, 0xFF, 0xFF));
-        SDL_BlitSurface(botao1, 0, screenSurface, &botao[0]);
+        SDL_BlitSurface(botao1, 0, screen, &botao[0]);
 
         SDL_Surface* botao2 = SDL_LoadBMP("img/botao2.bmp");
         SDL_SetColorKey(botao2, SDL_TRUE, SDL_MapRGB(botao2->format, 0xFF, 0xFF, 0xFF));
-        SDL_BlitSurface(botao2, 0, screenSurface, &botao[1]);
+        SDL_BlitSurface(botao2, 0, screen, &botao[1]);
 
 
         if (click[0] % 4 == 0) {
             SDL_Surface* bmp = SDL_LoadBMP("img/1.bmp");
             SDL_SetColorKey(bmp, SDL_TRUE, SDL_MapRGB(bmp->format, 0xFF, 0xFF, 0xFF));
-            SDL_BlitSurface(bmp, 0, screenSurface, &offset);
+            SDL_BlitSurface(bmp, 0, screen, &offset);
         }
 
         if (click[0] % 4 == 1) {
             SDL_Surface* bmp = SDL_LoadBMP("img/2.bmp");
             SDL_SetColorKey(bmp, SDL_TRUE, SDL_MapRGB(bmp->format, 0xFF, 0xFF, 0xFF));
-            SDL_BlitSurface(bmp, 0, screenSurface, &offset);
+            SDL_BlitSurface(bmp, 0, screen, &offset);
         }
 
         if (click[0] % 4 == 2) {
             SDL_Surface* bmp = SDL_LoadBMP("img/3.bmp");
             SDL_SetColorKey(bmp, SDL_TRUE, SDL_MapRGB(bmp->format, 0xFF, 0xFF, 0xFF));
-            SDL_BlitSurface(bmp, 0, screenSurface, &offset);
+            SDL_BlitSurface(bmp, 0, screen, &offset);
         }
         if (click[0] % 4 == 3) {
             SDL_Surface* bmp = SDL_LoadBMP("img/4.bmp");
             SDL_SetColorKey(bmp, SDL_TRUE, SDL_MapRGB(bmp->format, 0xFF, 0xFF, 0xFF));
-            SDL_BlitSurface(bmp, 0, screenSurface, &offset);
+            SDL_BlitSurface(bmp, 0, screen, &offset);
         }
 
         if (click[1] % 4 == 0) {
             SDL_Surface* bmp = SDL_LoadBMP("img/11.bmp");
             SDL_SetColorKey(bmp, SDL_TRUE, SDL_MapRGB(bmp->format, 0xFF, 0xFF, 0xFF));
-            SDL_BlitSurface(bmp, 0, screenSurface, &offset);
+            SDL_BlitSurface(bmp, 0, screen, &offset);
         }
         if (click[1] % 4 == 1) {
             SDL_Surface* bmp = SDL_LoadBMP("img/22.bmp");
             SDL_SetColorKey(bmp, SDL_TRUE, SDL_MapRGB(bmp->format, 0xFF, 0xFF, 0xFF));
-            SDL_BlitSurface(bmp, 0, screenSurface, &offset);
+            SDL_BlitSurface(bmp, 0, screen, &offset);
         }
         if (click[1] % 4 == 2) {
             SDL_Surface* bmp = SDL_LoadBMP("img/33.bmp");
             SDL_SetColorKey(bmp, SDL_TRUE, SDL_MapRGB(bmp->format, 0xFF, 0xFF, 0xFF));
-            SDL_BlitSurface(bmp, 0, screenSurface, &offset);
+            SDL_BlitSurface(bmp, 0, screen, &offset);
         }
         if (click[1] % 4 == 3) {
             SDL_Surface* bmp = SDL_LoadBMP("img/44.bmp");
             SDL_SetColorKey(bmp, SDL_TRUE, SDL_MapRGB(bmp->format, 0xFF, 0xFF, 0xFF));
-            SDL_BlitSurface(bmp, 0, screenSurface, &offset);
+            SDL_BlitSurface(bmp, 0, screen, &offset);
         }
         if (click[2] % 2 == 0) {
             SDL_Surface* bmp = SDL_LoadBMP("img/010.bmp");
             SDL_SetColorKey(bmp, SDL_TRUE, SDL_MapRGB(bmp->format, 0xFF, 0xFF, 0xFF));
-            SDL_BlitSurface(bmp, 0, screenSurface, &offset);
+            SDL_BlitSurface(bmp, 0, screen, &offset);
         }
         if (click[2] % 2 == 1) {
             SDL_Surface* bmp = SDL_LoadBMP("img/020.bmp");
             SDL_SetColorKey(bmp, SDL_TRUE, SDL_MapRGB(bmp->format, 0xFF, 0xFF, 0xFF));
-            SDL_BlitSurface(bmp, 0, screenSurface, &offset);
+            SDL_BlitSurface(bmp, 0, screen, &offset);
         }
         if (click[3] % 2 == 0) {
             SDL_Surface* bmp = SDL_LoadBMP("img/110.bmp");
             SDL_SetColorKey(bmp, SDL_TRUE, SDL_MapRGB(bmp->format, 0xFF, 0xFF, 0xFF));
-            SDL_BlitSurface(bmp, 0, screenSurface, &offset);
+            SDL_BlitSurface(bmp, 0, screen, &offset);
         }
         if (click[3] % 2 == 1) {
             SDL_Surface* bmp = SDL_LoadBMP("img/220.bmp");
             SDL_SetColorKey(bmp, SDL_TRUE, SDL_MapRGB(bmp->format, 0xFF, 0xFF, 0xFF));
-            SDL_BlitSurface(bmp, 0, screenSurface, &offset);
+            SDL_BlitSurface(bmp, 0, screen, &offset);
         }
         if (q > 0) {
             if (click[4] % 4 == 0) {
                 SDL_Surface* badbmp = SDL_LoadBMP("img/000.bmp");
                 SDL_SetColorKey(badbmp, SDL_TRUE, SDL_MapRGB(badbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(badbmp, 0, screenSurface, &inimigo);
+                SDL_BlitSurface(badbmp, 0, screen, &inimigo);
             }
 
             if (click[4] % 4 == 1) {
                 SDL_Surface* badbmp = SDL_LoadBMP("img/111.bmp");
                 SDL_SetColorKey(badbmp, SDL_TRUE, SDL_MapRGB(badbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(badbmp, 0, screenSurface, &inimigo);
+                SDL_BlitSurface(badbmp, 0, screen, &inimigo);
             }
 
             if (click[4] % 4 == 2) {
                 SDL_Surface* badbmp = SDL_LoadBMP("img/222.bmp");
                 SDL_SetColorKey(badbmp, SDL_TRUE, SDL_MapRGB(badbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(badbmp, 0, screenSurface, &inimigo);
+                SDL_BlitSurface(badbmp, 0, screen, &inimigo);
             }
             if (click[4] % 4 == 3) {
                 SDL_Surface* badbmp = SDL_LoadBMP("img/333.bmp");
                 SDL_SetColorKey(badbmp, SDL_TRUE, SDL_MapRGB(badbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(badbmp, 0, screenSurface, &inimigo);
+                SDL_BlitSurface(badbmp, 0, screen, &inimigo);
             }
             if (click[5] % 4 == 0) {
                 SDL_Surface* badbmp = SDL_LoadBMP("img/0000.bmp");
                 SDL_SetColorKey(badbmp, SDL_TRUE, SDL_MapRGB(badbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(badbmp, 0, screenSurface, &inimigo);
+                SDL_BlitSurface(badbmp, 0, screen, &inimigo);
             }
             if (click[5] % 4 == 1) {
                 SDL_Surface* badbmp = SDL_LoadBMP("img/1111.bmp");
                 SDL_SetColorKey(badbmp, SDL_TRUE, SDL_MapRGB(badbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(badbmp, 0, screenSurface, &inimigo);
+                SDL_BlitSurface(badbmp, 0, screen, &inimigo);
             }
             if (click[5] % 4 == 2) {
                 SDL_Surface* badbmp = SDL_LoadBMP("img/2222.bmp");
                 SDL_SetColorKey(badbmp, SDL_TRUE, SDL_MapRGB(badbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(badbmp, 0, screenSurface, &inimigo);
+                SDL_BlitSurface(badbmp, 0, screen, &inimigo);
             }
             if (click[5] % 4 == 3) {
                 SDL_Surface* badbmp = SDL_LoadBMP("img/3333.bmp");
                 SDL_SetColorKey(badbmp, SDL_TRUE, SDL_MapRGB(badbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(badbmp, 0, screenSurface, &inimigo);
+                SDL_BlitSurface(badbmp, 0, screen, &inimigo);
             }
             if (click[6] % 2 == 0) {
                 SDL_Surface* badbmp = SDL_LoadBMP("img/1010.bmp");
                 SDL_SetColorKey(badbmp, SDL_TRUE, SDL_MapRGB(badbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(badbmp, 0, screenSurface, &inimigo);
+                SDL_BlitSurface(badbmp, 0, screen, &inimigo);
             }
             if (click[6] % 2 == 1) {
                 SDL_Surface* badbmp = SDL_LoadBMP("img/2020.bmp");
                 SDL_SetColorKey(badbmp, SDL_TRUE, SDL_MapRGB(badbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(badbmp, 0, screenSurface, &inimigo);
+                SDL_BlitSurface(badbmp, 0, screen, &inimigo);
             }
             if (click[7] % 2 == 0) {
                 SDL_Surface* badbmp = SDL_LoadBMP("img/1110.bmp");
                 SDL_SetColorKey(badbmp, SDL_TRUE, SDL_MapRGB(badbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(badbmp, 0, screenSurface, &inimigo);
+                SDL_BlitSurface(badbmp, 0, screen, &inimigo);
             }
             if (click[7] % 2 == 1) {
                 SDL_Surface* badbmp = SDL_LoadBMP("img/2220.bmp");
                 SDL_SetColorKey(badbmp, SDL_TRUE, SDL_MapRGB(badbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(badbmp, 0, screenSurface, &inimigo);
+                SDL_BlitSurface(badbmp, 0, screen, &inimigo);
             }
         }
 
@@ -720,67 +732,67 @@ int time() {
             if (click[8] % 4 == 0) {
                 SDL_Surface* goodbmp = SDL_LoadBMP("img/00000.bmp");
                 SDL_SetColorKey(goodbmp, SDL_TRUE, SDL_MapRGB(goodbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(goodbmp, 0, screenSurface, &amigo);
+                SDL_BlitSurface(goodbmp, 0, screen, &amigo);
             }
             if (click[8] % 4 == 1) {
                 SDL_Surface* goodbmp = SDL_LoadBMP("img/11111.bmp");
                 SDL_SetColorKey(goodbmp, SDL_TRUE, SDL_MapRGB(goodbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(goodbmp, 0, screenSurface, &amigo);
+                SDL_BlitSurface(goodbmp, 0, screen, &amigo);
             }
             if (click[8] % 4 == 2) {
                 SDL_Surface* goodbmp = SDL_LoadBMP("img/22222.bmp");
                 SDL_SetColorKey(goodbmp, SDL_TRUE, SDL_MapRGB(goodbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(goodbmp, 0, screenSurface, &amigo);
+                SDL_BlitSurface(goodbmp, 0, screen, &amigo);
             }
             if (click[8] % 4 == 3) {
                 SDL_Surface* goodbmp = SDL_LoadBMP("img/33333.bmp");
                 SDL_SetColorKey(goodbmp, SDL_TRUE, SDL_MapRGB(goodbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(goodbmp, 0, screenSurface, &amigo);
+                SDL_BlitSurface(goodbmp, 0, screen, &amigo);
             }
             if (click[9] % 4 == 0) {
                 SDL_Surface* goodbmp = SDL_LoadBMP("img/000000.bmp");
                 SDL_SetColorKey(goodbmp, SDL_TRUE, SDL_MapRGB(goodbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(goodbmp, 0, screenSurface, &amigo);
+                SDL_BlitSurface(goodbmp, 0, screen, &amigo);
             }
             if (click[9] % 4 == 1) {
                 SDL_Surface *goodbmp = SDL_LoadBMP("img/111111.bmp");
                 SDL_SetColorKey(goodbmp, SDL_TRUE, SDL_MapRGB(goodbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(goodbmp, 0, screenSurface, &amigo);
+                SDL_BlitSurface(goodbmp, 0, screen, &amigo);
             }
             if (click[9] % 4 == 2) {
                 SDL_Surface* goodbmp = SDL_LoadBMP("img/222222.bmp");
                 SDL_SetColorKey(goodbmp, SDL_TRUE, SDL_MapRGB(goodbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(goodbmp, 0, screenSurface, &amigo);
+                SDL_BlitSurface(goodbmp, 0, screen, &amigo);
             }
             if (click[9] % 4 == 3) {
                 SDL_Surface* goodbmp = SDL_LoadBMP("img/333333.bmp");
                 SDL_SetColorKey(goodbmp, SDL_TRUE, SDL_MapRGB(goodbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(goodbmp, 0, screenSurface, &amigo);
+                SDL_BlitSurface(goodbmp, 0, screen, &amigo);
             }
             if (click[10] % 2 == 0) {
                 SDL_Surface* goodbmp = SDL_LoadBMP("img/01010.bmp");
                 SDL_SetColorKey(goodbmp, SDL_TRUE, SDL_MapRGB(goodbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(goodbmp, 0, screenSurface, &amigo);
+                SDL_BlitSurface(goodbmp, 0, screen, &amigo);
             }
             if (click[10] % 2 == 1) {
                 SDL_Surface* goodbmp = SDL_LoadBMP("img/02020.bmp");
                 SDL_SetColorKey(goodbmp, SDL_TRUE, SDL_MapRGB(goodbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(goodbmp, 0, screenSurface, &amigo);
+                SDL_BlitSurface(goodbmp, 0, screen, &amigo);
             }
             if (click[11] % 2 == 0) {
                 SDL_Surface* goodbmp = SDL_LoadBMP("img/01110.bmp");
                 SDL_SetColorKey(goodbmp, SDL_TRUE, SDL_MapRGB(goodbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(goodbmp, 0, screenSurface, &amigo);
+                SDL_BlitSurface(goodbmp, 0, screen, &amigo);
             }
             if (click[11] % 2 == 1) {
                 SDL_Surface* goodbmp = SDL_LoadBMP("img/02220.bmp");
                 SDL_SetColorKey(goodbmp, SDL_TRUE, SDL_MapRGB(goodbmp->format, 0xFF, 0xFF, 0xFF));
-                SDL_BlitSurface(goodbmp, 0, screenSurface, &amigo);
+                SDL_BlitSurface(goodbmp, 0, screen, &amigo);
             }
         }
         //END OF DRAWING
         
-        //        SDL_Flip(screenSurface);
+        //        SDL_Flip(screen);
         SDL_UpdateWindowSurface(window);
 
         shift_para_direita(vetX, vetY);
@@ -830,8 +842,6 @@ int time() {
     // SDL2
     //Destroy window
     SDL_DestroyWindow(window);
-
-    //    delete world;
 
     //Quit SDL subsystems
     SDL_Quit();
