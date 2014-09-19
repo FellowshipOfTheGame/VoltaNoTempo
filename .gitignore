@@ -26,3 +26,5 @@
 # Backup files
 *.~
 
+#Projeto especifico para Mac OS
+VoltaOSX
