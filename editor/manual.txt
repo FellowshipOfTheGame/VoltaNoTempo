@@ -1,0 +1,37 @@
+Commands
+==========================
+s - Save
+
+l - Load
+
+z - undo
+
+y - redo
+
+delete - reset block img
+
+0 to 9 (*) - select between blocks imgs
+
+alt left - last roll of img(**)
+
+alt right - next roll of img(**) 
+
+f - fill Forward with block img
+
+b - fill Backward with block img
+
+u - fill Up with block img
+
+d - fill Down with block img
+
+a - fill all with block img
+
+insert - clear all
+
+Mouse Click - select block
+
+
+NOTES:
+==============
+(*) This is called as a roll of img (select between  0 and 9 numbers) with a total of 3 rolls of img (3 * [0,9] = 30 img supported)
+(**) What is a "roll of img"? Read (*) up here ^
