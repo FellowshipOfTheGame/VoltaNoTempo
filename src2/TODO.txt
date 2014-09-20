@@ -1,0 +1,3 @@
+*Kurama:
+ - Adicionar esqueleto para o novo Volta 2.0
+ - 
