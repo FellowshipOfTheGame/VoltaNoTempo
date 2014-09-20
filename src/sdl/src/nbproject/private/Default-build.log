@@ -1,1 +1,0 @@
-g++ ../src/*.cpp ../src/*.h -o run -lSDL -lSDL_ttf -lSDL_image
