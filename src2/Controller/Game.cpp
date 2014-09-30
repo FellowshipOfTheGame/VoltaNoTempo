@@ -46,6 +46,7 @@ void Game::mainLoop()
 
 	//Initialization
     running = engine->init();
+    //engine->startTimer();
 
 	while(running)
 	{

@@ -9,6 +9,7 @@
 
 #include "syslibs.h"
 #include "Tools.h"
+#include "Timer.h"
 
 class Renderable
 {
@@ -49,6 +50,9 @@ class GraphicsModule
 protected:
     int screenWidth;
     int screenHeight;
+    int FPS;
+    int TICKS_PER_FRAME;
+    Timer *timer;
     
 public:
     virtual int getScreenWidth() {return screenWidth;}
@@ -58,6 +62,12 @@ public:
     {
         screenWidth = width_;
         screenHeight = height_;
+    }
+    
+    virtual void setCapFPS(int FPS_)
+    {
+        FPS = FPS_;
+        TICKS_PER_FRAME = 1000/60;  //1000ms
     }
     
     virtual void* getRenderingContext() = 0;

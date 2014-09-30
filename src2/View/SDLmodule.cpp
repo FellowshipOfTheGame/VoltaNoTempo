@@ -12,6 +12,7 @@ SDL::SDL()
     mixer = new SDLmixer();
     
     graphics->setScreenSize(640, 480);
+    graphics->setCapFPS(60);
 }
 
 SDL::~SDL()

@@ -32,7 +32,7 @@ class SDLinput : public EventHandler
 {
 private:
 	SDL_Event event;
-	//need timer
+	
 
 public:
 	SDLinput();
