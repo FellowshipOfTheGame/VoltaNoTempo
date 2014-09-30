@@ -10,6 +10,12 @@
 #include "syslibs.h"
 #include "Tools.h"
 
+class Renderable
+{
+public:
+    virtual void render() = 0;
+};
+
 /**/
 class Image : public Renderable
 {
@@ -26,8 +32,6 @@ public:
         clip.setClipping(0, 0, width_, height_);
     }
     virtual ~Image() {}
-    
-    virtual void render() = 0;
     
     virtual int getWidth() {return dimension.getW();}
     virtual int getHeight() {return dimension.getH();}

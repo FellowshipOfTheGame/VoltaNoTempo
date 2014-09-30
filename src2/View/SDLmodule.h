@@ -7,10 +7,7 @@
 #include <SDL2/SDL_mixer.h>
 
 #include "syslibs.h"
-#include "GraphicsModule.h"
-#include "EventHandler.h"
-#include "TTFmodule.h"
-#include "AudioModule.h"
+#include "Engine.h"
 
 
 class SDLgraphics : public GraphicsModule
@@ -83,9 +80,10 @@ class SDLimage : public Image
 {
 private:
 	SDL_Texture *texture;
+    SDL_Renderer *context;
 
 public:
-	SDLimage(SDL_Texture *texture_, int width_, int height_);
+	SDLimage(SDL_Texture *texture_, SDL_Renderer *context_, int width_, int height_);
 	~SDLimage();
 
 	void render();
@@ -135,6 +133,26 @@ public:
 
 };
 
+
+/*****************************************/
+/*****************************************/
+
+class SDL : public Engine
+{
+private:
+
+    
+public:
+    SDL();
+    ~SDL();
+    
+    bool init();
+    void pollEvent(EventType *type_, EventCode *code_);
+    bool shouldRender();
+    void updateContext();
+    void clear();
+    
+};
 
 
 

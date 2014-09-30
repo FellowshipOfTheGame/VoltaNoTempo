@@ -51,10 +51,4 @@ public:
 	Dimension2D getCurDimension();
 };
 
-class Renderable
-{
-public:
-	virtual void render() = 0;
-};
-
 #endif

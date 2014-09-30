@@ -12,7 +12,7 @@ protected:
 public:
 	virtual bool init() = 0;
 	virtual void pollEvent(EventType *type_, EventCode *code_) = 0;
-	virtual bool shouldRender() {return enableRendering;}
+	virtual bool shouldRender() {return enableRendering;}   //TODO: add timer
 };
 
 #endif

@@ -48,7 +48,7 @@ Image* ResourceManager::loadImageFromPath(std::string path_, std::string tag_)
 		return *(iter+index);
 
 	//Load image
-	GraphicsModule *graphics = controller->getGraphics();
+	GraphicsModule *graphics = controller->getEngine()->getGraphicsModule();
 	Image *img;
 
 	img = graphics->loadImage(path_);
@@ -127,7 +127,7 @@ Font* ResourceManager::loadFontFromPath(std::string path_, std::string tag_, int
 		return *(iter+index);
 
 	//Load Text
-	/*TTFmodule *ttf = controller->getTTF();
+	TTFmodule *ttf = controller->getEngine()->getTTFmodule();
 	Font *font;
 
 	font = ttf->loadFont(path_, sizePt_);
@@ -135,7 +135,7 @@ Font* ResourceManager::loadFontFromPath(std::string path_, std::string tag_, int
 	fonts.push_back(font);
 	tags.push_back(std::make_pair(tag_,fonts.size()-1));
 
-	return font;*/
+	return font;
     
     return nullptr;
 }
@@ -150,7 +150,7 @@ Audio* ResourceManager::loadAudioFromPath(std::string path_, std::string tag_, A
 		return *(iter+index);
 
 	//Load Audio
-	/*AudioModule *mixer = controller->getMixer();
+	AudioModule *mixer = controller->getEngine()->getAudioModule();
 	Audio *audio;
 
 	if(type_ == MUSIC)
@@ -165,7 +165,7 @@ Audio* ResourceManager::loadAudioFromPath(std::string path_, std::string tag_, A
 	audios.push_back(audio);
 	tags.push_back(std::make_pair(tag_,audios.size()-1));
 
-	return audio;*/
+	return audio;
     
     return nullptr;
 }

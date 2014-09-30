@@ -1,6 +1,68 @@
 #include "SDLmodule.h"
 #include "Game.h"
 
+/* **************************** */
+/* **************************** */
+
+SDL::SDL()
+{
+    graphics = new SDLgraphics();
+    event = new SDLinput();
+    ttf = new SDLttf();
+    mixer = new SDLmixer();
+    
+    graphics->setScreenSize(640, 480);
+}
+
+SDL::~SDL()
+{
+    SDL_Quit();
+}
+
+bool SDL::init()
+{
+    bool success = true;
+    
+    if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
+    {
+        Game::reportError("[ENGINE] Could not initialize SDL 2.0");
+        return false;
+    }
+    
+    success = graphics->init();
+    success = success && ttf->init();
+    success = success && mixer->init();
+    
+    return success;
+    
+}
+
+void SDL::pollEvent(EventType *type_, EventCode *code_)
+{
+    event->pollEvent(type_, code_);
+}
+
+bool SDL::shouldRender()
+{
+    return event->shouldRender();
+}
+
+void SDL::updateContext()
+{
+    graphics->updateContext();
+}
+
+void SDL::clear()
+{
+    graphics->clear();
+}
+
+
+
+/* **************************** */
+/* **************************** */
+
+
 SDLgraphics::SDLgraphics()
 {
 	window = nullptr;
@@ -13,18 +75,11 @@ SDLgraphics::~SDLgraphics()
 	SDL_DestroyRenderer(renderer);
 
 	IMG_Quit();
-	SDL_Quit();
 }
 
 bool SDLgraphics::init()
 {
-	if(SDL_Init(SDL_INIT_VIDEO) < 0)
-	{
-		Game::reportError("[GRAPHICS_MODULE] Could not initialize SDL 2.0");
-		return false;
-	}
-
-	window = SDL_CreateWindow("Jutsu Battle", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, 16);
+	window = SDL_CreateWindow("Volta No Tempo", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, 16);
 
 	if(window == nullptr)
 	{
@@ -84,7 +139,7 @@ Image* SDLgraphics::loadImage(std::string path_)
 		return nullptr;
 	}
 
-	image = new SDLimage(optimized, loaded->w, loaded->h);
+	image = new SDLimage(optimized, renderer, loaded->w, loaded->h);
 	SDL_FreeSurface(loaded);
 
 	return image;
@@ -111,18 +166,12 @@ SDLinput::SDLinput()
 
 SDLinput::~SDLinput()
 {
-	SDL_Quit();
+	
 }
 
-bool SDLinput::init()
+bool SDLinput::init()   //previous definition has been erased, because code was simplified. TODO: cleanup
 {
-	if(SDL_Init(SDL_INIT_EVENTS | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) < 0)
-	{
-		Game::reportError("[INPUT_MODULE] Could not initialize SDL 2.0");
-		return false;
-	}
-
-	return true;
+    return true;
 }
 
 void SDLinput::pollEvent(EventType *type_, EventCode *code_)
@@ -212,12 +261,6 @@ SDLmixer::~SDLmixer()
 
 bool SDLmixer::init()
 {
-	if(SDL_Init(SDL_INIT_AUDIO) < 0)
-	{
-		Game::reportError("[GRAPHICS_MODULE] Could not initialize SDL 2.0");
-		return false;
-	}
-
 	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
 	{
 		Game::reportError("[AUDIO_MODULE] Could not load extension SDL_mixer 2.0");
@@ -269,9 +312,10 @@ Audio* SDLmixer::loadSFX(std::string path_)
 /* **************************** */
 /* **************************** */
 
-SDLimage::SDLimage(SDL_Texture *texture_, int width_, int height_) : Image(width_, height_)
+SDLimage::SDLimage(SDL_Texture *texture_, SDL_Renderer *context_, int width_, int height_) : Image(width_, height_)
 {
 	texture = texture_;
+    context = context_;
 }
 
 SDLimage::~SDLimage()
@@ -281,7 +325,6 @@ SDLimage::~SDLimage()
 
 void SDLimage::render()
 {
-	SDL_Renderer *context = (SDL_Renderer*)controller->getGraphics()->getRenderingContext();
 	SDL_Rect pos;
 	SDL_Rect cut;
 
@@ -335,7 +378,7 @@ SDLtext::~SDLtext()
 
 void SDLtext::render()
 {
-	SDL_Renderer *context = (SDL_Renderer*)controller->getGraphics()->getRenderingContext();
+	SDL_Renderer *context = (SDL_Renderer*)controller->getEngine()->getGraphicsModule()->getRenderingContext();
 	SDL_Rect pos;
 	SDL_Rect cut;
 
@@ -354,7 +397,7 @@ void SDLtext::render()
 
 void SDLtext::update(std::string newText_)
 {
-	int width = font->getSizePt() * newText_.size();
+	int width = font->getSizePt() * (int)newText_.size();
 	int height = font->getSizePt();
 
 	text.assign(newText_);
@@ -367,7 +410,7 @@ SDL_Texture* SDLtext::preRender()
 {
 	SDL_Surface *tmp;
 	TTF_Font *fnt = (TTF_Font*)font->getFontStructure();
-	GraphicsModule *graphics = controller->getGraphics();
+	GraphicsModule *graphics = controller->getEngine()->getGraphicsModule();
 
 	if(renderedText != nullptr)
 		SDL_DestroyTexture(renderedText);

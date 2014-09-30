@@ -2,20 +2,17 @@
 #define __GAME_H__
 
 #include "syslibs.h"
-#include "GraphicsModule.h"
-#include "EventHandler.h"
-#include "TTFmodule.h"
-#include "AudioModule.h"
+#include "Engine.h"
 #include "ResourceManager.h"
 #include "Tools.h"
 
-#define PROJECT_PATH	"/home/guicc/Documents/Development/JutsuBattle/"            //TODO: Ler de um arquivo de configuracao
+#define PROJECT_PATH	"/home/guicc/Documents/FoG/VoltaNoTempo/"            //TODO: Ler de um arquivo de configuracao
 #define makePath(p)		s.assign(PROJECT_PATH).append(p)
 
 class Game
 {
 private:
-	GraphicsModule *graphics;   //TODO: unir todos elementos visuais e auditivos aqui
+	Engine *engine;
 
 	ResourceManager *resources;
     std::queue<Renderable*> renderQ;
@@ -35,7 +32,7 @@ public:
 	void logic();
 	void init();
 
-	GraphicsModule* getGraphics();
+	Engine* getEngine();
 	ResourceManager* getResourceManager();
 
 	static void reportError(const char *err_);

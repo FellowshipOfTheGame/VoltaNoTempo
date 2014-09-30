@@ -11,6 +11,8 @@ protected:
 
 public:
 	Audio() {volume = 1.0;}
+    
+    virtual ~Audio() {}
 
 	virtual void play() = 0;
 

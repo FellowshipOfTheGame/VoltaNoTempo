@@ -12,6 +12,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <cstring>
+#include <fcntl.h>
+#include <unistd.h>
 
 #include <fstream>
 #include <string>

@@ -14,6 +14,8 @@ public:
 	{
 		sizePt = sizePt_;
 	}
+    
+    virtual ~Font() {}
 
 	virtual int getSizePt() {return sizePt;}
 	virtual void* getFontStructure() = 0;
@@ -39,7 +41,7 @@ public:
 		text.assign(text_);
 		font = font_;
 
-		width = font_->getSizePt() * text_.size();
+		width = font_->getSizePt() * (int)text_.size();
 		height = font->getSizePt();
 
 		dimension.setPosition(0, 0);
