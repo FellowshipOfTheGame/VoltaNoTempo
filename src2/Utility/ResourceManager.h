@@ -2,9 +2,9 @@
 #define __RESOURCE_MANAGER_H__
 
 #include "syslibs.h"
-#include "GraphicsModule.h"
-#include "TTFmodule.h"
-#include "AudioModule.h"
+#include "View/GraphicsModule.h"
+#include "View/TTFmodule.h"
+#include "View/AudioModule.h"
 
 class ResourceManager
 {

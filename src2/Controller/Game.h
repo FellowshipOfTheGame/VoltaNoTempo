@@ -2,9 +2,9 @@
 #define __GAME_H__
 
 #include "syslibs.h"
-#include "Engine.h"
-#include "ResourceManager.h"
-#include "Tools.h"
+#include "View/Engine.h"
+#include "Utility/ResourceManager.h"
+#include "Utility/Tools.h"
 
 #define PROJECT_PATH	"/home/guicc/Documents/FoG/VoltaNoTempo/"            //TODO: Ler de um arquivo de configuracao
 #define makePath(p)		s.assign(PROJECT_PATH).append(p)

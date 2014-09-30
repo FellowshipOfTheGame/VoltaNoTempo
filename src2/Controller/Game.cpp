@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "SDLmodule.h"
+#include "View/SDLmodule.h"
 
 Game::Game()
 {

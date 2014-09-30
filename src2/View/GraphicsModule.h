@@ -8,8 +8,8 @@
 #define __GRAPHICS_MODULE_H__
 
 #include "syslibs.h"
-#include "Tools.h"
-#include "Timer.h"
+#include "Utility/Tools.h"
+#include "Utility/Timer.h"
 
 class Renderable
 {

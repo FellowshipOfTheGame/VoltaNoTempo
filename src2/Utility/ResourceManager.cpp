@@ -1,5 +1,5 @@
 #include "ResourceManager.h"
-#include "Game.h"
+#include "Controller/Game.h"
 
 ResourceManager::ResourceManager()
 {
