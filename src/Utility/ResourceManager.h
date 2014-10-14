@@ -2,6 +2,7 @@
 #define __RESOURCE_MANAGER_H__
 
 #ifdef __linux
+	#define nullptr NULL
 	#include "../syslibs.h"
 	#include "../View/GraphicsModule.h"
 	#include "../View/TTFmodule.h"
