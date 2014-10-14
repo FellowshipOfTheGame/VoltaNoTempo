@@ -7,7 +7,14 @@
 #ifndef __TIMER_H__
 #define __TIMER_H__
 
-#include "syslibs.h"
+#ifdef __linux
+	#include "../syslibs.h"
+#elif __APPLE__
+	#include "syslibs.h"
+#elif defined _WIN32 || defined _WIN64
+	// TODO
+#endif
+
 #include <SDL2/SDL.h>
 
 typedef enum {STOP, START, PAUSE} TimerStatus;

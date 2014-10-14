@@ -1,5 +1,12 @@
 #include "Game.h"
-#include "View/SDLmodule.h"
+
+#ifdef __linux
+	#include "../View/SDLmodule.h"
+#elif __APPLE__
+	#include "View/SDLmodule.h"
+#elif defined _WIN32 || defined _WIN64
+	// TODO
+#endif
 
 Game::Game()
 {

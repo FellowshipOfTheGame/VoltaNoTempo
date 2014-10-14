@@ -7,10 +7,19 @@
 #ifndef __ENGINE_H__
 #define __ENGINE_H__
 
-#include "GraphicsModule.h"
-#include "EventHandler.h"
-#include "TTFmodule.h"
-#include "AudioModule.h"
+#ifdef __linux
+    #include "../syslibs.h"
+#elif __APPLE__
+    #include "syslibs.h"
+#elif defined _WIN32 || defined _WIN64
+    // TODO
+#endif
+
+    #include "GraphicsModule.h"
+    #include "EventHandler.h"
+    #include "TTFmodule.h"
+    #include "AudioModule.h"
+
 
 class Engine
 {

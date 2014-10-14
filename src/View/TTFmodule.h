@@ -1,8 +1,14 @@
 #ifndef __TTF_MODULE_H__
 #define __TTF_MODULE_H__
 
-#include "Utility/Tools.h"
 
+#ifdef __linux
+	#include "../Utility/Tools.h"
+#elif __APPLE__
+	#include "Utility/Tools.h"
+#elif defined _WIN32 || defined _WIN64
+	// TODO
+#endif
 /**/
 class Font
 {

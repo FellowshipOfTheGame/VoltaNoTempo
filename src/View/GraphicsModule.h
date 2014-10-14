@@ -7,9 +7,19 @@
 #ifndef __GRAPHICS_MODULE_H__
 #define __GRAPHICS_MODULE_H__
 
-#include "syslibs.h"
-#include "Utility/Tools.h"
-#include "Utility/Timer.h"
+
+#ifdef __linux
+    #include "../syslibs.h"
+    #include "../Utility/Tools.h"
+    #include "../Utility/Timer.h"
+#elif __APPLE__
+    #include "syslibs.h"
+    #include "Utility/Tools.h"
+    #include "Utility/Timer.h"
+#elif defined _WIN32 || defined _WIN64
+    // TODO
+#endif
+
 
 class Renderable
 {

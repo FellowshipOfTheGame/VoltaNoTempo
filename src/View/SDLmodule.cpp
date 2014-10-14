@@ -1,5 +1,12 @@
 #include "SDLmodule.h"
-#include "Controller/Game.h"
+
+#ifdef __linux
+	#include "../Controller/Game.h"
+#elif __APPLE__
+    #include "Controller/Game.h"
+#elif defined _WIN32 || defined _WIN64
+    // TODO
+#endif
 
 /* **************************** */
 /* **************************** */
