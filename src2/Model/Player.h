@@ -1,14 +1,43 @@
 //
 //  Player.h
 //  VoltaOSX
-//
-//  Created by Guilherme S.G. on 10/7/14.
-//  Copyright (c) 2014 Fellowship of the Game. All rights reserved.
-//
 
-#ifndef __VoltaOSX__Player__
-#define __VoltaOSX__Player__
+#ifndef __PLAYER_H__
+#define __PLAYER_H__
 
-#include <stdio.h>
+#include "syslibs.h"
+#include "Utility/Tools.h"
+#include "Item.h"
+#include "View/GraphicsModule.h"
+#include "View/AudioModule.h"
 
-#endif /* defined(__VoltaOSX__Player__) */
+class Player
+{
+private:
+    Dimension2D position;
+    int hp;
+    std::vector<Item*> inventory;
+    
+    //Partes da View
+    Image *sprite;
+    Audio *footsteps;
+    
+    
+public:
+    Player(Dimension2D position_);
+    Player(int x_, int y_);
+    ~Player();
+    
+    void setPosition(Dimension2D position_);
+    void setPosition(int x_, int y_);
+    void setHP(int hp_);
+    
+    Dimension2D getPosition();
+    int getHP();
+    
+    Image *getSprite() {return sprite;}
+    
+};
+
+
+#endif

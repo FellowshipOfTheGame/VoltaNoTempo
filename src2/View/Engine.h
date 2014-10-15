@@ -11,6 +11,7 @@
 #include "EventHandler.h"
 #include "TTFmodule.h"
 #include "AudioModule.h"
+#include "Utility/Timer.h"
 
 class Engine
 {
@@ -19,6 +20,7 @@ protected:
     EventHandler *event;
     TTFmodule *ttf;
     AudioModule *mixer;
+    Timer fpsTimer;
     
 public:
     virtual ~Engine() {}
@@ -27,6 +29,8 @@ public:
     virtual bool shouldRender() = 0;
     virtual void updateContext() = 0;
     virtual void clear() = 0;
+    
+    virtual void startTimer()   {fpsTimer.start();}
     
     virtual GraphicsModule* getGraphicsModule() {return graphics;}
     virtual EventHandler* getEventHandler()     {return event;}

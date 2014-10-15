@@ -136,8 +136,6 @@ Font* ResourceManager::loadFontFromPath(std::string path_, std::string tag_, int
 	tags.push_back(std::make_pair(tag_,fonts.size()-1));
 
 	return font;
-    
-    return nullptr;
 }
 
 Audio* ResourceManager::loadAudioFromPath(std::string path_, std::string tag_, AudioType type_)
@@ -166,8 +164,6 @@ Audio* ResourceManager::loadAudioFromPath(std::string path_, std::string tag_, A
 	tags.push_back(std::make_pair(tag_,audios.size()-1));
 
 	return audio;
-    
-    return nullptr;
 }
 
 Image* ResourceManager::getImageWithTag(std::string tag_)

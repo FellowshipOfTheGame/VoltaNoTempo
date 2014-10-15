@@ -5,8 +5,12 @@ Game *controller = new Game();
 
 int main(int argc, char *argv[])
 {
+    bool initSuccess = true;
     
-    controller->mainLoop();
+    initSuccess = controller->init();
+    
+    if(initSuccess)
+        controller->mainLoop();
     
     return 0;
 }

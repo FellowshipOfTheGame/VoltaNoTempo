@@ -6,9 +6,35 @@
 //  Copyright (c) 2014 Fellowship of the Game. All rights reserved.
 //
 
-#ifndef __VoltaOSX__Item__
-#define __VoltaOSX__Item__
+#ifndef __ITEM_H__
+#define __ITEM_H__
 
-#include <stdio.h>
+class Item
+{
+protected:
+    int x;
+    int y;
+    
+public:
+    Item();
+    ~Item();
+    virtual void activate() = 0;
+};
 
-#endif /* defined(__VoltaOSX__Item__) */
+class Key : public Item
+{
+private:
+    int color;
+    
+public:
+    Key();
+    ~Key();
+    
+    void activate()
+    {
+        
+    }
+};
+
+
+#endif

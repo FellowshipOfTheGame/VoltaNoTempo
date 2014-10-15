@@ -76,6 +76,9 @@ public:
     virtual void clear() = 0;
     virtual Image* loadImage(std::string path_) = 0;
     
+    virtual int getCapFPS()         {return FPS;}
+    virtual int getTicksPerFrame()  {return TICKS_PER_FRAME;}
+    
 };
 
 #endif
