@@ -1,11 +1,20 @@
 #ifndef __RESOURCE_MANAGER_H__
 #define __RESOURCE_MANAGER_H__
 
-#include "../syslibs.h"
-#include "../View/GraphicsModule.h"
-#include "../View/TTFmodule.h"
-#include "../View/AudioModule.h"
-
+#ifdef __linux
+	#define nullptr NULL
+	#include "../syslibs.h"
+	#include "../View/GraphicsModule.h"
+	#include "../View/TTFmodule.h"
+	#include "../View/AudioModule.h"
+#elif __APPLE__
+	#include "syslibs.h"
+	#include "View/GraphicsModule.h"
+	#include "View/TTFmodule.h"
+	#include "View/AudioModule.h"
+#elif defined _WIN32 || defined _WIN64
+	// TODO
+#endif
 
 class ResourceManager
 {

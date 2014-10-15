@@ -3,7 +3,13 @@
 #ifndef __TOOLS_H__
 #define __TOOLS_H__
 
-#include "../syslibs.h"
+#ifdef __linux
+	#include "../syslibs.h"
+#elif __APPLE__
+	#include "syslibs.h"
+#elif defined _WIN32 || defined _WIN64
+	// TODO
+#endif
 
 class Dimension2D
 {

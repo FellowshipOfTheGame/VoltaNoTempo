@@ -1,5 +1,12 @@
 #include "ResourceManager.h"
-#include "../Controller/Game.h"
+
+#ifdef __linux
+	#include "../Controller/Game.h"
+#elif __APPLE__
+	#include "View/SDLmodule.h"
+#elif defined _WIN32 || defined _WIN64
+	// TODO
+#endif
 
 ResourceManager::ResourceManager()
 {
@@ -61,7 +68,7 @@ Image* ResourceManager::loadImageFromPath(std::string path_, std::string tag_)
 
 /*Image* ResourceManager::loadSpriteSheetXML(std::string path_, std::string tag_)
 {
-	Image *img = NULL;
+	Image *img = nullptr;
 	std::string content = "";
 
 	//Check tag
@@ -175,7 +182,7 @@ Image* ResourceManager::getImageWithTag(std::string tag_)
 		return images[index];
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 Font* ResourceManager::getFontWithTag(std::string tag_)
@@ -187,7 +194,7 @@ Font* ResourceManager::getFontWithTag(std::string tag_)
 		return fonts[index];
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 Audio* ResourceManager::getAudioWithTag(std::string tag_)
@@ -199,6 +206,6 @@ Audio* ResourceManager::getAudioWithTag(std::string tag_)
 		return audios[index];
 	}
 
-	return NULL;
+	return nullptr;
 }
 
