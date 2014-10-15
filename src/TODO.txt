@@ -1,4 +1,0 @@
-*Kurama:
- - Adicionar timer
- - Passar Logger para c++
- - 
