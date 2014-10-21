@@ -7,9 +7,10 @@
 #ifndef __GRAPHICS_MODULE_H__
 #define __GRAPHICS_MODULE_H__
 
-#include "syslibs.h"
-#include "Utility/Tools.h"
-#include "Utility/Timer.h"
+#include "../syslibs.h"
+#include "../Utility/Tools.h"
+#include "../Utility/Timer.h"
+
 
 class Renderable
 {
@@ -75,6 +76,9 @@ public:
     virtual void updateContext() = 0;
     virtual void clear() = 0;
     virtual Image* loadImage(std::string path_) = 0;
+    
+    virtual int getCapFPS()         {return FPS;}
+    virtual int getTicksPerFrame()  {return TICKS_PER_FRAME;}
     
 };
 

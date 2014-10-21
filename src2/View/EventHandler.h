@@ -2,7 +2,7 @@
 #define __EVENTHANDLER_H__
 
 typedef enum {NOEVENT, MOUSEDOWN, MOUSEUP, KEYDOWN, KEYUP} EventType;
-typedef enum {CODE_NULL, KEY_ESC, KEY_1, KEY_2, KEY_3, KEY_4, KEY_5} EventCode;
+typedef enum {CODE_NULL, KEY_ESC, KEY_1, KEY_2, KEY_3, KEY_4, KEY_5, KEY_SPACE} EventCode;
 
 class EventHandler
 {

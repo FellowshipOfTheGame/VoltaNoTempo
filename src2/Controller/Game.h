@@ -2,9 +2,10 @@
 #define __GAME_H__
 
 #include "syslibs.h"
-#include "View/Engine.h"
-#include "Utility/ResourceManager.h"
-#include "Utility/Tools.h"
+#include "../View/Engine.h"
+#include "../Utility/ResourceManager.h"
+#include "../Utility/Tools.h"
+#include "../Model/Player.h"
 
 #define PROJECT_PATH	"/home/guicc/Documents/FoG/VoltaNoTempo/"            //TODO: Ler de um arquivo de configuracao
 #define makePath(p)		s.assign(PROJECT_PATH).append(p)
@@ -30,13 +31,18 @@ public:
 	void addToQueue(Renderable *obj_);
 	void render();
 	void logic();
-	void init();
+	bool init();
 
 	Engine* getEngine();
 	ResourceManager* getResourceManager();
 
 	static void reportError(const char *err_);
 	static void writeToOutput(const char *out_);
+    
+    /*** TESTING PURPOSES ONLY ***/
+private:
+    std::vector<Player*> clones;
+    void spawnChar(int posX_, int posY_);
 };
 
 extern Game *controller;

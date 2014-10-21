@@ -1,5 +1,6 @@
 #include "SDLmodule.h"
-#include "Controller/Game.h"
+
+#include "../Controller/Game.h"
 
 /* **************************** */
 /* **************************** */
@@ -45,7 +46,16 @@ void SDL::pollEvent(EventType *type_, EventCode *code_)
 
 bool SDL::shouldRender()
 {
-    return event->shouldRender();
+    //If frame finished early
+    int frameTicks = fpsTimer.getTicks();
+    
+    //Wait remaining time
+    if(frameTicks < graphics->getTicksPerFrame())
+    {
+        SDL_Delay(graphics->getTicksPerFrame() - frameTicks);
+    }
+    
+    return true;
 }
 
 void SDL::updateContext()
@@ -104,7 +114,7 @@ bool SDLgraphics::init()
 	}
 
 	//Set clear color to black
-	 SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	 SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
 	return true;
 }
@@ -170,7 +180,7 @@ SDLinput::~SDLinput()
 
 }
 
-bool SDLinput::init()   //previous definition has been erased, because code was simplified. TODO: cleanup
+bool SDLinput::init()  //previous definition has been erased, because code was simplified. TODO: cleanup
 {
     return true;
 }
@@ -188,6 +198,8 @@ void SDLinput::pollEvent(EventType *type_, EventCode *code_)
 
 			if(event.key.keysym.sym == SDLK_ESCAPE)
 				*code_ = KEY_ESC;
+            else if(event.key.keysym.sym == SDLK_SPACE)
+                *code_  = KEY_SPACE;
 		}
 	}
 }

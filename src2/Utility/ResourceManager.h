@@ -1,10 +1,11 @@
 #ifndef __RESOURCE_MANAGER_H__
 #define __RESOURCE_MANAGER_H__
 
-#include "syslibs.h"
-#include "View/GraphicsModule.h"
-#include "View/TTFmodule.h"
-#include "View/AudioModule.h"
+#include "../syslibs.h"
+#include "../View/GraphicsModule.h"
+#include "../View/TTFmodule.h"
+#include "../View/AudioModule.h"
+
 
 class ResourceManager
 {

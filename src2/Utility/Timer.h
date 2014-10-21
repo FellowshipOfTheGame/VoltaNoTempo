@@ -7,7 +7,7 @@
 #ifndef __TIMER_H__
 #define __TIMER_H__
 
-#include "syslibs.h"
+#include "../syslibs.h"
 #include <SDL2/SDL.h>
 
 typedef enum {STOP, START, PAUSE} TimerStatus;

@@ -3,7 +3,7 @@
 #ifndef __TOOLS_H__
 #define __TOOLS_H__
 
-#include "syslibs.h"
+#include "../syslibs.h"
 
 class Dimension2D
 {
