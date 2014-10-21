@@ -90,7 +90,7 @@ SDLgraphics::~SDLgraphics()
 
 bool SDLgraphics::init()
 {
-	window = SDL_CreateWindow("Volta No Tempo", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, 16);
+	window = SDL_CreateWindow("Volta No Tempo", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, SDL_WINDOW_MOUSE_FOCUS);
 
 	if(window == NULL)
 	{
