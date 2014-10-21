@@ -136,8 +136,7 @@ Font* ResourceManager::loadFontFromPath(std::string path_, std::string tag_, int
 	tags.push_back(std::make_pair(tag_,fonts.size()-1));
 
 	return font;
-    
-    return nullptr;
+
 }
 
 Audio* ResourceManager::loadAudioFromPath(std::string path_, std::string tag_, AudioType type_)
@@ -166,8 +165,7 @@ Audio* ResourceManager::loadAudioFromPath(std::string path_, std::string tag_, A
 	tags.push_back(std::make_pair(tag_,audios.size()-1));
 
 	return audio;
-    
-    return nullptr;
+
 }
 
 Image* ResourceManager::getImageWithTag(std::string tag_)
@@ -179,7 +177,7 @@ Image* ResourceManager::getImageWithTag(std::string tag_)
 		return images[index];
 	}
 
-	return nullptr;
+
 }
 
 Font* ResourceManager::getFontWithTag(std::string tag_)
@@ -191,7 +189,7 @@ Font* ResourceManager::getFontWithTag(std::string tag_)
 		return fonts[index];
 	}
 
-	return nullptr;
+
 }
 
 Audio* ResourceManager::getAudioWithTag(std::string tag_)
@@ -203,6 +201,5 @@ Audio* ResourceManager::getAudioWithTag(std::string tag_)
 		return audios[index];
 	}
 
-	return nullptr;
 }
 

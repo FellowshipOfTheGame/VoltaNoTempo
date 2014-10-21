@@ -10,7 +10,7 @@ SDL::SDL()
     event = new SDLinput();
     ttf = new SDLttf();
     mixer = new SDLmixer();
-    
+
     graphics->setScreenSize(640, 480);
     graphics->setCapFPS(60);
 }
@@ -23,19 +23,19 @@ SDL::~SDL()
 bool SDL::init()
 {
     bool success = true;
-    
+
     if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
         Game::reportError("[ENGINE] Could not initialize SDL 2.0");
         return false;
     }
-    
+
     success = graphics->init();
     success = success && ttf->init();
     success = success && mixer->init();
-    
+
     return success;
-    
+
 }
 
 void SDL::pollEvent(EventType *type_, EventCode *code_)
@@ -66,8 +66,8 @@ void SDL::clear()
 
 SDLgraphics::SDLgraphics()
 {
-	window = nullptr;
-	renderer = nullptr;
+	window = NULL;
+	renderer = NULL;
 }
 
 SDLgraphics::~SDLgraphics()
@@ -82,7 +82,7 @@ bool SDLgraphics::init()
 {
 	window = SDL_CreateWindow("Volta No Tempo", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, 16);
 
-	if(window == nullptr)
+	if(window == NULL)
 	{
 		Game::reportError("[GRAPHICS_MODULE] Could not create a window using SDL 2.0");
 		return false;
@@ -90,7 +90,7 @@ bool SDLgraphics::init()
 
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-	if(renderer == nullptr)
+	if(renderer == NULL)
 	{
 		Game::reportError("[GRAPHICS_MODULE] Could not create a window with accelerated rendering with SDL 2.0");
 		return false;
@@ -116,28 +116,28 @@ void* SDLgraphics::getRenderingContext()
 
 Image* SDLgraphics::loadImage(std::string path_)
 {
-	SDL_Texture *optimized = nullptr;
-	SDL_Surface *loaded = nullptr;
+	SDL_Texture *optimized = NULL;
+	SDL_Surface *loaded = NULL;
 	Image *image;
 
 	loaded = IMG_Load(path_.c_str());
-	if(loaded == nullptr)
+	if(loaded == NULL)
 	{
 		std::string err = "[GRAPHICS_MODULE] Could not load image at path ";
 		err.append(path_);
 
 		Game::reportError(err.c_str());
-		return nullptr;
+		return NULL;
 	}
 
 	optimized = SDL_CreateTextureFromSurface(renderer, loaded);
-	if(optimized == nullptr)
+	if(optimized == NULL)
 	{
 		std::string err = "[GRAPHICS_MODULE] Unable to create texture, loaded from path ";
 		err.append(path_);
 
 		Game::reportError(err.c_str());
-		return nullptr;
+		return NULL;
 	}
 
 	image = new SDLimage(optimized, renderer, loaded->w, loaded->h);
@@ -167,7 +167,7 @@ SDLinput::SDLinput()
 
 SDLinput::~SDLinput()
 {
-	
+
 }
 
 bool SDLinput::init()   //previous definition has been erased, because code was simplified. TODO: cleanup
@@ -220,15 +220,15 @@ bool SDLttf::init()
 Font* SDLttf::loadFont(std::string path_, int sizePt_)
 {
 	TTF_Font *rawFont = TTF_OpenFont(path_.c_str(), sizePt_);
-	Font *font = nullptr;
+	Font *font = NULL;
 
-	if(rawFont == nullptr)
+	if(rawFont == NULL)
 	{
 		std::string err = "[TTF_MODULE] Could not load font at path: ";
 		err.append(path_);
 
 		Game::reportError(err.c_str());
-		return nullptr;
+		return NULL;
 	}
 
 	font = new SDLfont(rawFont, sizePt_);
@@ -273,16 +273,16 @@ bool SDLmixer::init()
 
 Audio* SDLmixer::loadMusic(std::string path_)
 {
-	Audio *audio = nullptr;
+	Audio *audio = NULL;
 	Mix_Music *rawAudio = Mix_LoadMUS(path_.c_str());
 
-	if(rawAudio == nullptr)
+	if(rawAudio == NULL)
 	{
 		std::string err = "[AUDIO_MODULE] Could not load audio at path: ";
 		err.append(path_);
 
 		Game::reportError(err.c_str());
-		return nullptr;
+		return NULL;
 	}
 
 	audio = new SDLaudio(rawAudio);
@@ -292,16 +292,16 @@ Audio* SDLmixer::loadMusic(std::string path_)
 
 Audio* SDLmixer::loadSFX(std::string path_)
 {
-	Audio *audio = nullptr;
+	Audio *audio = NULL;
 	Mix_Chunk *rawAudio = Mix_LoadWAV(path_.c_str());
 
-	if(rawAudio == nullptr)
+	if(rawAudio == NULL)
 	{
 		std::string err = "[AUDIO_MODULE] Could not load audio at path: ";
 		err.append(path_);
 
 		Game::reportError(err.c_str());
-		return nullptr;
+		return NULL;
 	}
 
 	audio = new SDLaudio(rawAudio);
@@ -368,7 +368,7 @@ void* SDLfont::getFontStructure()
 SDLtext::SDLtext(std::string text_, Font *font_, SDL_Color color_) : Text(text_, font_)
 {
 	color = color_;
-	renderedText = nullptr;
+	renderedText = NULL;
 	renderedText = preRender();
 }
 
@@ -413,27 +413,27 @@ SDL_Texture* SDLtext::preRender()
 	TTF_Font *fnt = (TTF_Font*)font->getFontStructure();
 	GraphicsModule *graphics = controller->getEngine()->getGraphicsModule();
 
-	if(renderedText != nullptr)
+	if(renderedText != NULL)
 		SDL_DestroyTexture(renderedText);
 
 	tmp = TTF_RenderText_Solid(fnt, text.c_str(), color);
-	if(tmp == nullptr)
+	if(tmp == NULL)
 	{
 		std::string err = "[TTF_MODULE] Could not pre-render text: ";
 		err.append(text);
 
 		Game::reportError(err.c_str());
-		return nullptr;
+		return NULL;
 	}
 
 	renderedText = SDL_CreateTextureFromSurface((SDL_Renderer*)graphics->getRenderingContext(), tmp);
-	if(renderedText == nullptr)
+	if(renderedText == NULL)
 	{
 		std::string err = "[TTF_MODULE] Could not create texture from surface for text: ";
 		err.append(text);
 
 		Game::reportError(err.c_str());
-		return nullptr;
+		return NULL;
 	}
 
 	SDL_FreeSurface(tmp);
@@ -464,11 +464,11 @@ SDLaudio::~SDLaudio()
 
 void SDLaudio::play()
 {
-	if(music != nullptr)
+	if(music != NULL)
 	{
 		Mix_PlayMusic(music, loop);
 	}
-	else if(sfx != nullptr)
+	else if(sfx != NULL)
 	{
 		Mix_PlayChannel(-1, sfx, loop);
 	}
