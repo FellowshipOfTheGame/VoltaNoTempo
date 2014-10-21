@@ -164,6 +164,7 @@ Audio* ResourceManager::loadAudioFromPath(std::string path_, std::string tag_, A
 	tags.push_back(std::make_pair(tag_,audios.size()-1));
 
 	return audio;
+
 }
 
 Image* ResourceManager::getImageWithTag(std::string tag_)
@@ -175,7 +176,9 @@ Image* ResourceManager::getImageWithTag(std::string tag_)
 		return images[index];
 	}
 
+
 	return NULL;
+
 }
 
 Font* ResourceManager::getFontWithTag(std::string tag_)
@@ -198,6 +201,7 @@ Audio* ResourceManager::getAudioWithTag(std::string tag_)
 	{
 		return audios[index];
 	}
+
 
 	return NULL;
 }

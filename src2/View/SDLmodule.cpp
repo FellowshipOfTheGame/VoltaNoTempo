@@ -11,7 +11,7 @@ SDL::SDL()
     event = new SDLinput();
     ttf = new SDLttf();
     mixer = new SDLmixer();
-    
+
     graphics->setScreenSize(640, 480);
     graphics->setCapFPS(60);
 }
@@ -24,19 +24,19 @@ SDL::~SDL()
 bool SDL::init()
 {
     bool success = true;
-    
+
     if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
         Game::reportError("[ENGINE] Could not initialize SDL 2.0");
         return false;
     }
-    
+
     success = graphics->init();
     success = success && ttf->init();
     success = success && mixer->init();
-    
+
     return success;
-    
+
 }
 
 void SDL::pollEvent(EventType *type_, EventCode *code_)
@@ -177,7 +177,7 @@ SDLinput::SDLinput()
 
 SDLinput::~SDLinput()
 {
-	
+
 }
 
 bool SDLinput::init()  //previous definition has been erased, because code was simplified. TODO: cleanup
