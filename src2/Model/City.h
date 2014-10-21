@@ -1,34 +1,34 @@
 //
-//  Trap.h
+//  City.h
 //  VoltaOSX
 //
 //  Created by X S.G. on 10/7/14.
 //  Copyright (c) 2014 Fellowship of the Game. All rights reserved.
 //
 
-#ifndef __TRAP_H__
-#define __TRAP_H__
+#ifndef __CITY_H__
+#define __CITY_H__
 
-class Trap
+class City
 {
 protected:
     int x;
     int y;
 
 public:
-    Trap();
-    ~Trap();
+    City();
+    ~City();
     virtual void activate() = 0;
 };
 
-class Spike : public Trap
+class Door : public City
 {
 private:
 
-public:
+    Door();
+    ~Door();
 
-    Spike();
-    ~Spike();
+public:
 
     void activate()
     {
