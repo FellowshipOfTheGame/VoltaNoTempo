@@ -15,10 +15,9 @@ public:
     virtual ~Audio() {}
 
 	virtual void play() = 0;
-
 	virtual double getVolume() {return volume;}
-
 	virtual void setVolume(double volume_) {volume = volume_;}
+    virtual void stop() {}
 };
 
 /**/

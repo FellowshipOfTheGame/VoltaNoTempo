@@ -428,7 +428,7 @@ SDL_Texture* SDLtext::preRender()
 	if(renderedText != NULL)
 		SDL_DestroyTexture(renderedText);
 
-	tmp = TTF_RenderText_Solid(fnt, text.c_str(), color);
+	tmp = TTF_RenderText_Blended(fnt, text.c_str(), color);
 	if(tmp == NULL)
 	{
 		std::string err = "[TTF_MODULE] Could not pre-render text: ";
@@ -484,6 +484,16 @@ void SDLaudio::play()
 	{
 		Mix_PlayChannel(-1, sfx, loop);
 	}
+}
+
+void SDLaudio::stop()
+{
+    Mix_HaltChannel(-1);
+}
+
+void SDLaudio::setVolume(double volume_)
+{
+    Mix_VolumeMusic((int)(volume_*100));
 }
 
 

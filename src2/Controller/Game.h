@@ -42,6 +42,10 @@ public:
     /*** TESTING PURPOSES ONLY ***/
 private:
     std::vector<Player*> clones;
+    Font *fontArial;
+    Text *spawnText;
+    Audio *bgMusic;
+    
     void spawnChar(int posX_, int posY_);
 };
 

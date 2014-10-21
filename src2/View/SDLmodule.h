@@ -129,8 +129,9 @@ public:
 	SDLaudio(Mix_Chunk *sfx_);
 	~SDLaudio();
 
-	 void play();
-
+    void play();
+    void stop();
+    void setVolume(double volume_);
 };
 
 

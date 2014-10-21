@@ -48,6 +48,16 @@ void Game::mainLoop()
 	EventType eventType;
     int screenWidth = engine->getGraphicsModule()->getScreenWidth();
     int screenHeight = engine->getGraphicsModule()->getScreenHeight();
+    
+    //Load
+    fontArial = resources->loadFontFromPath("img/Arial.ttf", "font-arial-16", 16);
+    bgMusic = resources->loadAudioFromPath("img/music.ogg", "bg-music", MUSIC);
+    
+    spawnText = engine->getTTFmodule()->makeText("Press 'space' to spawn", fontArial, 128, 255, 128, 255);
+    spawnText->setPosition(100, 50);
+    
+    bgMusic->play();
+    //bgMusic->setVolume(0.5);
 
 	//Initialization
     srand((unsigned)time(NULL));
@@ -72,6 +82,7 @@ void Game::mainLoop()
 		if(engine->shouldRender())
 		{
 			render();
+            spawnText->render();
 			engine->updateContext();
 		}
 	}
@@ -81,7 +92,11 @@ void Game::mainLoop()
         delete clones[i];
     }
     clones.clear();
-
+    
+    bgMusic->stop();
+    delete bgMusic;
+    delete fontArial;
+    delete spawnText;
 }
 
 void Game::addToQueue(Renderable *obj_)
