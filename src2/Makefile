@@ -1,6 +1,6 @@
 CC = g++
 CCFLAGS = -Wall
-SOURCES = main.cpp
+SOURCES = main.cpp Controller/Game.cpp Model/Item.cpp Model/Player.cpp Utility/ResourceManager.cpp Utility/Timer.cpp Utility/Tools.cpp View/SDLmodule.cpp
 LDFLAGS = -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer
 OBJECTS=$(SOURCES:.cpp=.o)
 EXEC = exec
