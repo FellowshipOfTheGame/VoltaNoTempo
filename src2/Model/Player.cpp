@@ -13,7 +13,11 @@ Player::Player(Dimension2D position_)
     //Set Folder name
     resources->setFolderName("assets/");
 
+    //Set initial position
     position = position_;
+    
+
+    //Set initial hp
     hp = 5;
     
     sprite = resources->loadImageFromPath("sprite.png", "player-stand");
@@ -63,3 +67,4 @@ int Player::getHP()
 {
     return hp;
 }
+
