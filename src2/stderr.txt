@@ -1,0 +1,19 @@
+DATE: Thu Nov  6 10:57:37 2014
+[TTF_MODULE] Could not load font at path: img/Arial.ttf[AUDIO_MODULE] Could not load audio at path: img/music.oggDATE: Thu Nov  6 10:57:39 2014
+[TTF_MODULE] Could not load font at path: img/Arial.ttf[AUDIO_MODULE] Could not load audio at path: img/music.oggDATE: Thu Nov  6 10:57:49 2014
+[TTF_MODULE] Could not load font at path: img/Arial.ttf[AUDIO_MODULE] Could not load audio at path: img/music.oggDATE: Thu Nov  6 10:58:03 2014
+[TTF_MODULE] Could not load font at path: img/Arial.ttf[AUDIO_MODULE] Could not load audio at path: img/music.oggDATE: Thu Nov  6 10:58:07 2014
+[TTF_MODULE] Could not load font at path: img/Arial.ttf[AUDIO_MODULE] Could not load audio at path: img/music.oggDATE: Thu Nov  6 10:58:43 2014DATE: Thu Nov  6 10:59:52 2014
+[TTF_MODULE] Could not load font at path: img/Arial.ttf[AUDIO_MODULE] Could not load audio at path: img/music.oggDATE: Thu Nov  6 11:01:13 2014
+[TTF_MODULE] Could not load font at path: img/Arial.ttf[AUDIO_MODULE] Could not load audio at path: img/music.oggDATE: Thu Nov  6 11:01:16 2014
+[TTF_MODULE] Could not load font at path: img/Arial.ttf[AUDIO_MODULE] Could not load audio at path: img/music.oggDATE: Thu Nov  6 11:04:27 2014
+[TTF_MODULE] Could not load font at path: assets/Arial.ttf[AUDIO_MODULE] Could not load audio at path: assets/music.oggDATE: Thu Nov  6 11:05:25 2014
+[TTF_MODULE] Could not load font at path: assets/Arial.ttf[AUDIO_MODULE] Could not load audio at path: assets/music.oggDATE: Thu Nov  6 11:05:29 2014
+[TTF_MODULE] Could not load font at path: assets/Arial.ttf[AUDIO_MODULE] Could not load audio at path: assets/music.oggDATE: Thu Nov  6 11:07:11 2014
+[TTF_MODULE] Could not load font at path: assets/Arial.ttf[AUDIO_MODULE] Could not load audio at path: assets/music.oggDATE: Thu Nov  6 11:11:57 2014
+[GRAPHICS_MODULE] Could not load image at path img/sprite.pngDATE: Thu Nov  6 11:12:32 2014
+[GRAPHICS_MODULE] Could not load image at path img/sprite.pngDATE: Thu Nov  6 11:15:37 2014
+DATE: Thu Nov  6 11:33:57 2014
+[AUDIO_MODULE] Could not load audio at path: music.oggDATE: Thu Nov  6 11:34:20 2014
+[AUDIO_MODULE] Could not load audio at path: music.oggDATE: Thu Nov  6 11:34:53 2014
+[AUDIO_MODULE] Could not load audio at path: music.oggDATE: Thu Nov  6 11:35:47 2014

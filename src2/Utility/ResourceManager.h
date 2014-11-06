@@ -14,7 +14,7 @@ private:
 	std::vector<Font*> fonts;
 	std::vector<Audio*> audios;
 	std::vector< std::pair<std::string,int> > tags;
-
+    std::string folder;
 	int getIndexForTag(std::string tag_);
 
 public:
@@ -30,6 +30,8 @@ public:
 	Audio* getAudioWithTag(std::string tag_);
 
 	Image *loadSpriteSheetXML(std::string tag_, std::string field_);
+
+    void setFolderName(std::string name);
 
 };
 

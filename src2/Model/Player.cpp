@@ -10,20 +10,26 @@ Player::Player(Dimension2D position_)
 {
     ResourceManager *resources = controller->getResourceManager();
     
+    //Set Folder name
+    resources->setFolderName("assets/");
+
     position = position_;
     hp = 5;
     
-    sprite = resources->loadImageFromPath("img/sprite.png", "player-stand");
+    sprite = resources->loadImageFromPath("sprite.png", "player-stand");
 }
 
 Player::Player(int x_, int y_)
 {
     ResourceManager *resources = controller->getResourceManager();
-    
+
+    //Set Folder name
+    resources->setFolderName("assets/");
+
     position.setPosition(x_, y_);
     hp = 5;
     
-    sprite = resources->loadImageFromPath("img/sprite.png", "player-stand");
+    sprite = resources->loadImageFromPath("sprite.png", "player-stand");
 }
 
 Player::~Player()
@@ -57,4 +63,3 @@ int Player::getHP()
 {
     return hp;
 }
-

@@ -2,7 +2,7 @@
 #include "../View/SDLmodule.h"
 #include "../Model/Player.h"
 #include "../View/SDLmodule.h"
-
+    
 Game::Game()
 {
 	char buff[256];
@@ -49,9 +49,12 @@ void Game::mainLoop()
     int screenWidth = engine->getGraphicsModule()->getScreenWidth();
     int screenHeight = engine->getGraphicsModule()->getScreenHeight();
     
+    //Set Folder name
+    resources->setFolderName("assets/");
+
     //Load
-    fontArial = resources->loadFontFromPath("img/Arial.ttf", "font-arial-16", 16);
-    bgMusic = resources->loadAudioFromPath("img/music.ogg", "bg-music", MUSIC);
+    fontArial = resources->loadFontFromPath("Arial.ttf", "font-arial-16", 16);
+    bgMusic = resources->loadAudioFromPath("music.ogg", "bg-music", MUSIC);
     
     spawnText = engine->getTTFmodule()->makeText("Press 'space' to spawn", fontArial, 128, 255, 128, 255);
     spawnText->setPosition(100, 50);
@@ -141,12 +144,12 @@ void Game::render()
 
 void Game::reportError(const char *err_)
 {
-	fprintf(stderr, "%s\n", err_);
+	fprintf(stderr, "%s", err_);
 }
 
 void Game::writeToOutput(const char *out_)
 {
-	fprintf(stdout, "%s\n", out_);
+	fprintf(stdout, "%s", out_);
 }
 
 Engine* Game::getEngine()
@@ -165,8 +168,6 @@ void Game::spawnChar(int posX_, int posY_)
 {
     clones.push_back(new Player(posX_, posY_));
 }
-
-
 
 
 

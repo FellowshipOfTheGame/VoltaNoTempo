@@ -21,5 +21,20 @@ public:
     virtual void activate() = 0;
 };
 
+class Door : public City
+{
+private:
+
+    Door();
+    ~Door();
+
+public:
+
+    void activate()
+    {
+
+    }
+};
+
 
 #endif

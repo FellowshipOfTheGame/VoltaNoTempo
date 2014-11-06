@@ -3,7 +3,7 @@
 
 ResourceManager::ResourceManager()
 {
-
+    folder = "ERROR_UNNAMED/";    // If not changed will show this folder name
 }
 
 ResourceManager::~ResourceManager()
@@ -51,7 +51,7 @@ Image* ResourceManager::loadImageFromPath(std::string path_, std::string tag_)
 	GraphicsModule *graphics = controller->getEngine()->getGraphicsModule();
 	Image *img;
 
-	img = graphics->loadImage(path_);
+	img = graphics->loadImage(folder + path_);
 
 	images.push_back(img);
 	tags.push_back(std::make_pair(tag_,images.size()-1));
@@ -130,7 +130,7 @@ Font* ResourceManager::loadFontFromPath(std::string path_, std::string tag_, int
 	TTFmodule *ttf = controller->getEngine()->getTTFmodule();
 	Font *font;
 
-	font = ttf->loadFont(path_, sizePt_);
+	font = ttf->loadFont(folder + path_, sizePt_);
 
 	fonts.push_back(font);
 	tags.push_back(std::make_pair(tag_,fonts.size()-1));
@@ -153,11 +153,11 @@ Audio* ResourceManager::loadAudioFromPath(std::string path_, std::string tag_, A
 
 	if(type_ == MUSIC)
 	{
-		audio = mixer->loadMusic(path_);
+		audio = mixer->loadMusic(folder + path_);
 	}
 	else if(type_ == SFX)
 	{
-		audio = mixer->loadSFX(path_);
+		audio = mixer->loadSFX(folder + path_);
 	}
 
 	audios.push_back(audio);
@@ -206,3 +206,6 @@ Audio* ResourceManager::getAudioWithTag(std::string tag_)
 	return NULL;
 }
 
+void ResourceManager::setFolderName(std::string name) {
+    folder = name+"/";
+}
