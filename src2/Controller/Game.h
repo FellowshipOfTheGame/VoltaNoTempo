@@ -1,7 +1,7 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 
-#include "syslibs.h"
+#include "../syslibs.h"
 #include "../View/Engine.h"
 #include "../Utility/ResourceManager.h"
 #include "../Utility/Tools.h"

@@ -5,7 +5,7 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
 
-#include "syslibs.h"
+#include "../syslibs.h"
 #include "../Utility/Tools.h"
 #include "Item.h"
 #include "../View/GraphicsModule.h"

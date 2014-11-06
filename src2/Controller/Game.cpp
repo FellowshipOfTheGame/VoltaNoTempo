@@ -141,12 +141,12 @@ void Game::render()
 
 void Game::reportError(const char *err_)
 {
-	fprintf(stderr, "%s", err_);
+	fprintf(stderr, "%s\n", err_);
 }
 
 void Game::writeToOutput(const char *out_)
 {
-	fprintf(stdout, "%s", out_);
+	fprintf(stdout, "%s\n", out_);
 }
 
 Engine* Game::getEngine()

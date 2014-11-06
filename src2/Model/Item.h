@@ -18,7 +18,7 @@ protected:
 public:
     Item();
     ~Item();
-    virtual void activate() = 0;
+    virtual void use() = 0;
 };
 
 class Key : public Item
@@ -30,10 +30,8 @@ public:
     Key();
     ~Key();
     
-    void activate()
-    {
-        
-    }
+    void use();
+    int getColor();
 };
 
 
