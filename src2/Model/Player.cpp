@@ -137,10 +137,16 @@ void Player::storeAction()
 
 void Player::getAction(Action *action_, int *timeSpent_, int **args_)
 {
-    if(!actions.empty())
+    if(!actions.empty() && !actionArg.empty() && !timeSpent.empty())
     {
         action_ = &actions.front();
+        actions.pop();
         
+        args_ = &actionArg.front();
+        actionArg.pop();
+        
+        timeSpent_ = &timeSpent.front();
+        timeSpent.pop();
     }
     
 }

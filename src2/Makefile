@@ -1,6 +1,6 @@
 CC = g++
 CCFLAGS = -Wall
-SOURCES = main.cpp Controller/Game.cpp Model/Item.cpp Model/Player.cpp Utility/ResourceManager.cpp Utility/Timer.cpp Utility/Tools.cpp View/SDLmodule.cpp
+SOURCES = main.cpp Controller/Game.cpp Model/Item.cpp Model/Player.cpp Model/Mechanism.cpp Model/Passage.cpp Model/Level.cpp Utility/ResourceManager.cpp Utility/Timer.cpp Utility/Tools.cpp View/SDLmodule.cpp
 LDFLAGS = -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer
 OBJECTS=$(SOURCES:.cpp=.o)
 EXEC = exec
@@ -8,10 +8,16 @@ MACOSX = -L/opt/local/lib
 
 all: clean create run
 
+osx: clean createOSX
+
 perfect: cls reset clean create run cls cat
 
 create:$(OBJECTS)
+	@$(CC) $(CCFLAGS) $(OBJECTS) $(LDFLAGS) -o $(EXEC)
+
+createOSX:$(OBJECTS)
 	@$(CC) $(CCFLAGS) $(OBJECTS) $(MACOSX) $(LDFLAGS) -o $(EXEC)
+
 run:
 	@./$(EXEC)
 reset:

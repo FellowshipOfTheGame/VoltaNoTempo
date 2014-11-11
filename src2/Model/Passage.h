@@ -8,7 +8,7 @@
 #ifndef __PASSAGE_H__
 #define __PASSAGE_H__
 
-#include "Tools.h"
+#include "../Utility/Tools.h"
 #include "Item.h"
 #include "Mechanism.h"
 

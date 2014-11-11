@@ -49,20 +49,9 @@ void Game::mainLoop()
     int screenWidth = engine->getGraphicsModule()->getScreenWidth();
     int screenHeight = engine->getGraphicsModule()->getScreenHeight();
     
-    //Set Folder name
-    resources->setFolderName("assets/");
-
-    //Load
-    fontArial = resources->loadFontFromPath("Arial.ttf", "font-arial-16", 16);
-    bgMusic = resources->loadAudioFromPath("music.ogg", "bg-music", MUSIC);
-    
-    spawnText = engine->getTTFmodule()->makeText("Press 'space' to spawn", fontArial, 128, 255, 128, 255);
-    spawnText->setPosition(100, 50);
-    
-    bgMusic->play();
-    //bgMusic->setVolume(0.5);
-
 	//Initialization
+    levelZero = new Level();
+    
     srand((unsigned)time(NULL));
     engine->startTimer();
 
@@ -74,32 +63,19 @@ void Game::mainLoop()
 		{
 			if(eventCode == KEY_ESC)
 				running = false;
-            else if(eventCode == KEY_SPACE)
-            {
-                spawnChar(rand()%screenWidth, rand()%(screenHeight-150));
-            }
-		}
-
-		logic();
+        }
+        
+        levelZero->handleEvents(eventType, eventCode);
+		levelZero->logic();
 
 		if(engine->shouldRender())
 		{
+            levelZero->render();
 			render();
-            spawnText->render();
 			engine->updateContext();
 		}
 	}
-    
-    for(unsigned long i = 0; i < clones.size(); i++)
-    {
-        delete clones[i];
-    }
-    clones.clear();
-    
-    bgMusic->stop();
-    delete bgMusic;
-    delete fontArial;
-    delete spawnText;
+
 }
 
 void Game::addToQueue(Renderable *obj_)
@@ -109,25 +85,7 @@ void Game::addToQueue(Renderable *obj_)
 
 void Game::logic()
 {
-    int screenWidth = engine->getGraphicsModule()->getScreenWidth();
-    int screenHeight = engine->getGraphicsModule()->getScreenHeight();
     
-    for(unsigned long i = 0; i < clones.size(); i++)
-    {
-        Player *p = clones[i];
-        Dimension2D newPos = p->getPosition();
-        
-        //Apply gravity
-        newPos.setPosition(newPos.getX(), newPos.getY()+2);
-        
-        if(newPos.getY() > screenHeight-150)
-            newPos.setPosition(newPos.getX(), screenHeight-150);
-        
-        p->setPosition(newPos);
-        
-        //Add clone to drawing queue
-        addToQueue(clones[i]->getSprite());
-    }
 }
 
 void Game::render()
@@ -166,13 +124,4 @@ ResourceManager* Game::getResourceManager()
 {
 	return resources;
 }
-
-
-/*** TESTING ***/
-void Game::spawnChar(int posX_, int posY_)
-{
-    clones.push_back(new Player(posX_, posY_));
-}
-
-
 
