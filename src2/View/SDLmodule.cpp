@@ -274,9 +274,12 @@ SDLmixer::~SDLmixer()
 
 bool SDLmixer::init()
 {
-	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+    int ret = Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+    
+	if(ret < 0)
 	{
 		Game::reportError("[AUDIO_MODULE] Could not load extension SDL_mixer 2.0");
+        Game::reportError(ret);
 		return false;
 	}
 

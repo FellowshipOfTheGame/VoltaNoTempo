@@ -37,6 +37,7 @@ public:
 	ResourceManager* getResourceManager();
 
 	static void reportError(const char *err_);
+    static void reportError(int errCode);
 	static void writeToOutput(const char *out_);
     
     /*** TESTING PURPOSES ONLY ***/

@@ -7,3 +7,23 @@
 //
 
 #include "Item.h"
+
+Key::Key()
+{
+    
+}
+
+Key::~Key()
+{
+    
+}
+
+void Key::activate()
+{
+    
+}
+
+int Key::getColor()
+{
+    return color;
+}

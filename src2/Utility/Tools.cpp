@@ -1,13 +1,13 @@
 #include "Tools.h"
 
 
-Dimension2D::Dimension2D(int x_, int y_)
+Dimension2D::Dimension2D(double x_, double y_)
 {
 	x = x_;
 	y = y_;
 }
 
-Dimension2D::Dimension2D(int x_, int y_, int w_, int h_)
+Dimension2D::Dimension2D(double x_, double y_, int w_, int h_)
 {
 	x = x_;
 	y = y_;
@@ -20,7 +20,7 @@ Dimension2D::~Dimension2D()
 
 }
 
-void Dimension2D::setPosition(int x_, int y_)
+void Dimension2D::setPosition(double x_, double y_)
 {
 	x = x_;
 	y = y_;
@@ -32,12 +32,12 @@ void Dimension2D::setSize(int w_, int h_)
 	h = h_;
 }
 
-int Dimension2D::getX()
+double Dimension2D::getX()
 {
 	return x;
 }
 
-int Dimension2D::getY()
+double Dimension2D::getY()
 {
 	return y;
 }

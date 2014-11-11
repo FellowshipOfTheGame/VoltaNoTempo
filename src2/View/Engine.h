@@ -32,6 +32,7 @@ public:
     virtual void clear() = 0;
     
     virtual void startTimer()   {fpsTimer.start();}
+    virtual int getTimerTick()  {return fpsTimer.getTicks();}
     
     virtual GraphicsModule* getGraphicsModule() {return graphics;}
     virtual EventHandler* getEventHandler()     {return event;}

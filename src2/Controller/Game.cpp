@@ -147,6 +147,11 @@ void Game::reportError(const char *err_)
 	fprintf(stderr, "%s", err_);
 }
 
+void Game::reportError(int errCode)
+{
+    fprintf(stderr, "%d", errCode);
+}
+
 void Game::writeToOutput(const char *out_)
 {
 	fprintf(stdout, "%s", out_);

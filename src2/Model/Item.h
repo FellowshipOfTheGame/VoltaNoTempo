@@ -16,8 +16,6 @@ protected:
     int y;
     
 public:
-    Item();
-    ~Item();
     virtual void activate() = 0;
 };
 
@@ -30,10 +28,8 @@ public:
     Key();
     ~Key();
     
-    void activate()
-    {
-        
-    }
+    void activate();
+    int getColor();
 };
 
 

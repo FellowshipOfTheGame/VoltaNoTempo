@@ -8,22 +8,22 @@
 class Dimension2D
 {
 private:
-	int x;
-	int y;
+	double x;
+	double y;
 	int w;
 	int h;
 
 public:
 	Dimension2D() {}
-	Dimension2D(int x_, int y_);
-	Dimension2D(int x_, int y_, int w_, int h_);
+	Dimension2D(double x_, double y_);
+	Dimension2D(double x_, double y_, int w_, int h_);
 	~Dimension2D();
 
-	void setPosition(int x_, int y_);
+	void setPosition(double x_, double y_);
 	void setSize(int w_, int h_);
 
-	int getX();
-	int getY();
+	double getX();
+	double getY();
 	int getW();
 	int getH();
 };

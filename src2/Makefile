@@ -4,13 +4,14 @@ SOURCES = main.cpp Controller/Game.cpp Model/Item.cpp Model/Player.cpp Utility/R
 LDFLAGS = -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer
 OBJECTS=$(SOURCES:.cpp=.o)
 EXEC = exec
+MACOSX = -L/opt/local/lib
 
 all: clean create run
 
 perfect: cls reset clean create run cls cat
 
 create:$(OBJECTS)
-	@$(CC) $(CCFLAGS) $(OBJECTS) $(LDFLAGS) -o $(EXEC)
+	@$(CC) $(CCFLAGS) $(OBJECTS) $(MACOSX) $(LDFLAGS) -o $(EXEC)
 run:
 	@./$(EXEC)
 reset:
