@@ -39,8 +39,9 @@ public:
 	ResourceManager* getResourceManager();
 
 	static void reportError(const char *err_);
-    static void reportError(int errCode);
+    static void reportError(int errCode_);
 	static void writeToOutput(const char *out_);
+    static void writeToOutput(int out_);
 };
 
 extern Game *controller;

@@ -201,6 +201,19 @@ void SDLinput::pollEvent(EventType *type_, EventCode *code_)
             else if(event.key.keysym.sym == SDLK_SPACE)
                 *code_  = KEY_SPACE;
 		}
+        else if(event.type == SDL_KEYDOWN)
+        {
+            *type_ = KEYDOWN;
+            
+            if(event.key.keysym.sym == SDLK_LEFT)
+                *code_ = KEY_ARROWLEFT;
+            else if(event.key.keysym.sym == SDLK_RIGHT)
+                *code_ = KEY_ARROWRIGHT;
+            else if(event.key.keysym.sym == SDLK_UP)
+                *code_ = KEY_ARROWUP;
+            else if(event.key.keysym.sym == SDLK_DOWN)
+                *code_ = KEY_ARROWDOWN;
+        }
 	}
 }
 

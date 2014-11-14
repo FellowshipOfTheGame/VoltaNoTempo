@@ -46,8 +46,6 @@ void Game::mainLoop()
 {
 	EventCode eventCode;
 	EventType eventType;
-    int screenWidth = engine->getGraphicsModule()->getScreenWidth();
-    int screenHeight = engine->getGraphicsModule()->getScreenHeight();
     
 	//Initialization
     levelZero = new Level();
@@ -105,14 +103,19 @@ void Game::reportError(const char *err_)
 	fprintf(stderr, "%s", err_);
 }
 
-void Game::reportError(int errCode)
+void Game::reportError(int errCode_)
 {
-    fprintf(stderr, "%d", errCode);
+    fprintf(stderr, "%d", errCode_);
 }
 
 void Game::writeToOutput(const char *out_)
 {
 	fprintf(stdout, "%s", out_);
+}
+
+void Game::writeToOutput(int out_)
+{
+    fprintf(stdout, "%d", out_);
 }
 
 Engine* Game::getEngine()

@@ -15,13 +15,15 @@ Player::Player(Dimension2D position_)
 
     //Set initial position
     position = position_;
-    
 
     //Set initial stats
     hp = 5;
     speed = 5;
+    startTime = 0;
     
     sprite = resources->loadImageFromPath("sprite.png", "player-stand");
+    
+    startAction(STAND, NULL);
 }
 
 Player::Player(double x_, double y_)
@@ -34,8 +36,11 @@ Player::Player(double x_, double y_)
     position.setPosition(x_, y_);
     hp = 5;
     speed = 5;
+    startTime = 0;
     
     sprite = resources->loadImageFromPath("sprite.png", "player-stand");
+    
+    startAction(STAND, NULL);
 }
 
 Player::~Player()
@@ -48,42 +53,63 @@ Player::~Player()
     for(i = 0; i < timeSpent.size(); i++)
         timeSpent.pop();
     
-    for(int i = 0; i < actionArg.size(); i++)
+    for(i = 0; i < actionArg.size(); i++)
         actionArg.pop();
     
     delete[] currentArgs;
     delete sprite;
-    //delete footsteps;
 }
 
 void Player::update()
 {
     double x = position.getX();
     double y = position.getY();
+    Engine *engine = controller->getEngine();
+    
+    //Follow the actions on the queue, watching the time
+    //int delta = engine->getTimerTick() - startTime;
+    int delta = counter;
+    
+    if(isClone() && currentAction != NOACTION)
+    {
+        if(!timeSpent.empty() && delta >= timeSpent.front()) //Start next action
+        {
+            //Move queue
+            actions.pop();
+            timeSpent.pop();
+            actionArg.pop();
+        }
+    }
+    else
+    {
+        //Animate death/puff
+    }
     
     switch (currentAction)
     {
         case MOVE_LEFT:
-            position.setPosition(x-speed, y);
+            setPosition(x-speed, y);
             break;
             
         case MOVE_RIGHT:
-            position.setPosition(x+speed, y);
+            setPosition(x+speed, y);
             break;
             
         case MOVE_UP:   //a ladder for example
-            position.setPosition(x, y-speed/2);
+            setPosition(x, y-speed/2);
             break;
             
         case MOVE_DOWN:
-            position.setPosition(x, y+speed/2);
+            setPosition(x, y+speed/2);
             break;
             
         case STAND:
         default:
-            
+            //do nothing
             break;
     }
+    
+    counter++;
 }
 
 void Player::setPosition(Dimension2D position_)
@@ -115,40 +141,109 @@ int Player::getHP()
 
 void Player::startAction(Action action_, int *args_)
 {
-    actions.push(action_);
-    currentAction = action_;
-    
-    actionArg.push(args_);
-    currentArgs = args_;
-    
-    startTime = controller->getEngine()->getTimerTick();
+    //Se acao for igual a atual, a engine esta replicando um mesmo evento
+    if(action_ != currentAction)
+    {
+        //End any other action that started before
+        //endAction();
+        
+        actions.push(action_);
+        currentAction = action_;
+        
+        actionArg.push(args_);
+        currentArgs = args_;
+        
+        startTime = controller->getEngine()->getTimerTick();
+        counter = 0;
+    }
 }
 
 void Player::endAction()
 {
-    int delta = controller->getEngine()->getTimerTick() - startTime;
+    //int delta = controller->getEngine()->getTimerTick() - startTime;
+    int delta = counter;
     timeSpent.push(delta);
 }
 
-void Player::storeAction()
-{
-    
-}
-
-void Player::getAction(Action *action_, int *timeSpent_, int **args_)
+void Player::getAction(Action *action_, int *timeSpent_, int *args_)
 {
     if(!actions.empty() && !actionArg.empty() && !timeSpent.empty())
     {
-        action_ = &actions.front();
+        *action_ = actions.front();
         actions.pop();
         
-        args_ = &actionArg.front();
+        args_ = actionArg.front();
         actionArg.pop();
         
-        timeSpent_ = &timeSpent.front();
+        *timeSpent_ = timeSpent.front();
         timeSpent.pop();
     }
     
+}
+
+int Player::getStartTime()
+{
+    return startTime;
+}
+
+void Player::copyActionQueue(std::queue<Action> copy_)
+{
+    //actions = std::queue<Action>(copy_);
+    
+    while(!copy_.empty())
+    {
+        actions.push(copy_.front());
+        copy_.pop();
+    }
+}
+
+void Player::copyTimeQueue(std::queue<int> copy_)
+{
+    //timeSpent = std::queue<int>(copy_);
+    
+    while(!copy_.empty())
+    {
+        timeSpent.push(copy_.front());
+        copy_.pop();
+    }
+}
+
+void Player::copyArgsQueue(std::queue<int*> copy_)
+{
+    //actionArg = std::queue<int*>(copy_);
+    
+    while(!copy_.empty())
+    {
+        actionArg.push(copy_.front());
+        copy_.pop();
+    }
+}
+
+void Player::clearQueue()
+{
+    for(unsigned i = 0; i < actions.size(); i++)
+        actions.pop();
+    
+    for(unsigned i = 0; i < timeSpent.size(); i++)
+        timeSpent.pop();
+    
+    for(unsigned i = 0; i < actionArg.size(); i++)
+        actionArg.pop();
+}
+
+std::queue<Action> Player::getActionQueue()
+{
+    return actions;
+}
+
+std::queue<int> Player::getTimeQueue()
+{
+    return timeSpent;
+}
+
+std::queue<int*> Player::getArgsQueue()
+{
+    return actionArg;
 }
 
 

@@ -11,7 +11,7 @@
 #include "../View/GraphicsModule.h"
 #include "../View/AudioModule.h"
 
-typedef enum {STAND, MOVE_LEFT, MOVE_RIGHT, MOVE_UP, MOVE_DOWN, JUMP, FALL, USE_ITEM, SELECT_ITEM, ACTIVATE} Action;
+typedef enum {NOACTION, STAND, MOVE_LEFT, MOVE_RIGHT, MOVE_UP, MOVE_DOWN, JUMP, FALL, USE_ITEM, SELECT_ITEM, ACTIVATE} Action;
 
 class Player
 {
@@ -23,6 +23,7 @@ private:
 protected:
     Dimension2D position;
     int hp, speed;
+    bool cloned = true;
     std::vector<Item*> inventory;
     
     //Time mechanism
@@ -30,6 +31,7 @@ protected:
     std::queue<Action> actions;
     std::queue<int> timeSpent;
     std::queue<int*> actionArg;
+    int counter;
     
     //Partes da View
     Image *sprite;
@@ -41,6 +43,8 @@ public:
     Player(double x_, double y_);
     ~Player();
     
+    void update();
+    
     void setPosition(Dimension2D position_);
     void setPosition(double x_, double y_);
     void setHP(int hp_);
@@ -51,11 +55,20 @@ public:
     
     void startAction(Action action_, int *args_);
     void endAction();
-    void storeAction();
-    void getAction(Action *action_, int *timeSpent_, int **args_);
+    void getAction(Action *action_, int *timeSpent_, int *args_);
+    int getStartTime();
     
-    void update();
+    void copyActionQueue(std::queue<Action> copy_);
+    void copyTimeQueue(std::queue<int> copy_);
+    void copyArgsQueue(std::queue<int*> copy_);
+    void clearQueue();
     
+    std::queue<Action> getActionQueue();
+    std::queue<int> getTimeQueue();
+    std::queue<int*> getArgsQueue();
+    
+    bool isClone()                  {return cloned;}
+    void setCloned(bool cloned_)    {cloned = cloned_;}
 };
 
 //

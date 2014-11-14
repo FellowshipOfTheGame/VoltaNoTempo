@@ -48,6 +48,7 @@ public:
 		dimension.setSize(width, height);
 		clip.setClipping(0, 0, width, height);
 	}
+    virtual ~Text() {}
 
 	virtual void render() = 0;
 	virtual void update(std::string newText_) = 0;

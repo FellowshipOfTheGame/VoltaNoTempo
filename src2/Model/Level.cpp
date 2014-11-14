@@ -27,7 +27,9 @@ Level::Level()
     
     bgMusic->play();
     //bgMusic->setVolume(0.5);
-
+    
+    mainChar = new Player(50, 150);
+    mainChar->setCloned(false);
 }
 
 Level::~Level()
@@ -37,6 +39,7 @@ Level::~Level()
         delete clones[i];
     }
     clones.clear();
+    delete mainChar;
     
     bgMusic->stop();
     delete bgMusic;
@@ -54,9 +57,52 @@ void Level::handleEvents(EventType type_, EventCode code_)
     {
         if(code_ == KEY_SPACE)
         {
-            spawnChar(rand()%screenWidth, rand()%(screenHeight-150));
+            //spawnChar(rand()%screenWidth, rand()%(screenHeight-150));
+            spawnChar(50, 150);
+            mainChar->startAction(NOACTION, NULL);
+            
+            //Copy current action queue to new clone
+            unsigned last = (unsigned)(clones.size()-1);
+            clones[last]->copyActionQueue(mainChar->getActionQueue());
+            clones[last]->copyTimeQueue(mainChar->getTimeQueue());
+            clones[last]->copyArgsQueue(mainChar->getArgsQueue());
+            
+            //Empty old action queue
+            mainChar->clearQueue();
+        }
+        
+        mainChar->endAction();
+        mainChar->startAction(STAND, NULL);
+    }
+    else if(type_ == KEYDOWN)
+    {
+        switch (code_)
+        {
+            case KEY_ARROWLEFT:
+                mainChar->startAction(MOVE_LEFT, NULL);
+                break;
+                
+            case KEY_ARROWRIGHT:
+                mainChar->startAction(MOVE_RIGHT, NULL);
+                break;
+                
+            case KEY_ARROWUP:
+                //Check for ladders, etc
+                break;
+                
+            case KEY_ARROWDOWN:
+                //Check for ladders, etc
+                break;
+                
+            default:
+                break;
         }
     }
+    else //no event has occured
+    {
+        //mainChar->startAction(STAND, NULL);
+    }
+    
 }
 
 void Level::logic()
@@ -65,31 +111,62 @@ void Level::logic()
     int screenWidth = engine->getGraphicsModule()->getScreenWidth();
     int screenHeight = engine->getGraphicsModule()->getScreenHeight();
     
-    for(unsigned long i = 0; i < clones.size(); i++)
+    Game::writeToOutput("player pos: ");
+    Game::writeToOutput(mainChar->getPosition().getX());
+    Game::writeToOutput(" ");
+    Game::writeToOutput(mainChar->getPosition().getY());
+    Game::writeToOutput("\n");
+    
+    //Apply gravity
+    for(int i = -1; i < (int)clones.size(); i++)
     {
-        Player *p = clones[i];
+        Player *p;
+        
+        if(i == -1)
+            p = mainChar;
+        else
+            p = clones[i];
+        
         Dimension2D newPos = p->getPosition();
         
-        //Apply gravity
         newPos.setPosition(newPos.getX(), newPos.getY()+2);
         
         if(newPos.getY() > screenHeight-150)
             newPos.setPosition(newPos.getX(), screenHeight-150);
         
         p->setPosition(newPos);
+        p->update();
+        
+        if(i >= 0)
+        {
+            //Follow the actions on the queue, watching the time
+            Action currentAction = NOACTION;
+            int currentTimeFrame = 0;
+            int *currentArgs = NULL;
+            
+            clones[i]->getAction(&currentAction, &currentTimeFrame, currentArgs);
+            if(currentAction == NOACTION)
+            {
+                //delete clones[i];
+                //clones.erase(clones.begin()+i);
+            }
+        }
     }
-
+    
 }
 
 void Level::render()
 {
     controller->addToQueue(spawnText);
     
+    //Add clones to drawing queue
     for(unsigned long i = 0; i < clones.size(); i++)
     {
-        //Add clone to drawing queue
         controller->addToQueue(clones[i]->getSprite());
     }
+    
+    //Add main character
+    controller->addToQueue(mainChar->getSprite());
 }
 
 void Level::spawnChar(int posX_, int posY_)

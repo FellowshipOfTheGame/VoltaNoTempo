@@ -16,6 +16,7 @@
 class Level
 {
 private:
+    Player *mainChar;
     std::vector<Player*> clones;
     Font *fontArial;
     Text *spawnText;
