@@ -20,6 +20,8 @@ Player::Player(Dimension2D position_)
     hp = 5;
     speed = 5;
     startTime = 0;
+    timeCounter = 0;
+    cloned = false;
     
     sprite = resources->loadImageFromPath("sprite.png", "player-stand");
     
@@ -37,6 +39,8 @@ Player::Player(double x_, double y_)
     hp = 5;
     speed = 5;
     startTime = 0;
+    timeCounter = 0;
+    cloned = false;
     
     sprite = resources->loadImageFromPath("sprite.png", "player-stand");
     
@@ -67,22 +71,25 @@ void Player::update()
     Engine *engine = controller->getEngine();
     
     //Follow the actions on the queue, watching the time
-    //int delta = engine->getTimerTick() - startTime;
-    int delta = counter;
-    
-    if(isClone() && currentAction != NOACTION)
+    if(isClone())
     {
-        if(!timeSpent.empty() && delta >= timeSpent.front()) //Start next action
+        currentAction = actions.front();
+        currentArgs = actionArg.front();
+        
+        if(!timeSpent.empty() && timeCounter >= timeSpent.front()) //Start next action
         {
+            Game::writeToOutput("Time: ");
+            Game::writeToOutput(timeCounter);
+            Game::writeToOutput(" vs ");
+            Game::writeToOutput(timeSpent.front());
+            Game::writeToOutput("\n");
+            
             //Move queue
             actions.pop();
             timeSpent.pop();
             actionArg.pop();
+            timeCounter = 0;
         }
-    }
-    else
-    {
-        //Animate death/puff
     }
     
     switch (currentAction)
@@ -109,7 +116,7 @@ void Player::update()
             break;
     }
     
-    counter++;
+    timeCounter++;
 }
 
 void Player::setPosition(Dimension2D position_)
@@ -145,7 +152,7 @@ void Player::startAction(Action action_, int *args_)
     if(action_ != currentAction)
     {
         //End any other action that started before
-        //endAction();
+        endAction();
         
         actions.push(action_);
         currentAction = action_;
@@ -153,16 +160,13 @@ void Player::startAction(Action action_, int *args_)
         actionArg.push(args_);
         currentArgs = args_;
         
-        startTime = controller->getEngine()->getTimerTick();
-        counter = 0;
+        timeCounter = 0;
     }
 }
 
 void Player::endAction()
 {
-    //int delta = controller->getEngine()->getTimerTick() - startTime;
-    int delta = counter;
-    timeSpent.push(delta);
+    timeSpent.push(timeCounter);
 }
 
 void Player::getAction(Action *action_, int *timeSpent_, int *args_)
@@ -181,9 +185,9 @@ void Player::getAction(Action *action_, int *timeSpent_, int *args_)
     
 }
 
-int Player::getStartTime()
+int Player::getCurrentTimeFrame()
 {
-    return startTime;
+    return timeCounter;
 }
 
 void Player::copyActionQueue(std::queue<Action> copy_)

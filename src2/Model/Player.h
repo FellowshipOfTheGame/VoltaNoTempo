@@ -19,6 +19,7 @@ private:
     Action currentAction;
     int *currentArgs;
     int startTime;
+    int timeCounter;
     
 protected:
     Dimension2D position;
@@ -31,7 +32,6 @@ protected:
     std::queue<Action> actions;
     std::queue<int> timeSpent;
     std::queue<int*> actionArg;
-    int counter;
     
     //Partes da View
     Image *sprite;
@@ -57,6 +57,7 @@ public:
     void endAction();
     void getAction(Action *action_, int *timeSpent_, int *args_);
     int getStartTime();
+    int getCurrentTimeFrame();
     
     void copyActionQueue(std::queue<Action> copy_);
     void copyTimeQueue(std::queue<int> copy_);

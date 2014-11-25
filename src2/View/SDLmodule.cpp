@@ -187,9 +187,11 @@ bool SDLinput::init()  //previous definition has been erased, because code was s
 
 void SDLinput::pollEvent(EventType *type_, EventCode *code_)
 {
+    const Uint8 *keystate = SDL_GetKeyboardState(NULL);
 	*type_ = NOEVENT;
 	*code_ = CODE_NULL;
 
+    //single event keys
 	while(SDL_PollEvent(&event))
 	{
 		if(event.type == SDL_KEYUP)
@@ -215,6 +217,28 @@ void SDLinput::pollEvent(EventType *type_, EventCode *code_)
                 *code_ = KEY_ARROWDOWN;
         }
 	}
+    
+    //continuous-response keys
+    if(keystate[SDL_SCANCODE_LEFT])
+    {
+        *type_ = KEYHOLD;
+        *code_ = KEY_ARROWLEFT;
+    }
+    if(keystate[SDL_SCANCODE_RIGHT])
+    {
+        *type_ = KEYHOLD;
+        *code_ = KEY_ARROWRIGHT;
+    }
+    if(keystate[SDL_SCANCODE_UP])
+    {
+        *type_ = KEYHOLD;
+        *code_ = KEY_ARROWUP;
+    }
+    if(keystate[SDL_SCANCODE_DOWN])
+    {
+        *type_ = KEYHOLD;
+        *code_ = KEY_ARROWDOWN;
+    }
 }
 
 

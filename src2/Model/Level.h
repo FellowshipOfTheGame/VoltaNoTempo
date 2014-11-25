@@ -21,8 +21,9 @@ private:
     Font *fontArial;
     Text *spawnText;
     Audio *bgMusic;
+    int spawnX, spawnY;
     
-    void spawnChar(int posX_, int posY_);
+    Player* spawnChar(int posX_, int posY_);
 
 public:
     Level();

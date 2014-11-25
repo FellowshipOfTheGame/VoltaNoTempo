@@ -51,10 +51,10 @@ void Game::mainLoop()
     levelZero = new Level();
     
     srand((unsigned)time(NULL));
-    engine->startTimer();
 
 	while(running)
 	{
+        engine->startTimer();
 		engine->pollEvent(&eventType, &eventCode);
 
 		if(eventType == KEYUP)

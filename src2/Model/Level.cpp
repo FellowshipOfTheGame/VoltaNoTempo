@@ -28,7 +28,9 @@ Level::Level()
     bgMusic->play();
     //bgMusic->setVolume(0.5);
     
-    mainChar = new Player(50, 150);
+    spawnX = 50;
+    spawnY = 300;
+    mainChar = new Player(spawnX, spawnY);
     mainChar->setCloned(false);
 }
 
@@ -55,26 +57,22 @@ void Level::handleEvents(EventType type_, EventCode code_)
     
     if(type_ == KEYUP)
     {
+        //Spawn the player on the past/future and make its previous self a clone
         if(code_ == KEY_SPACE)
         {
-            //spawnChar(rand()%screenWidth, rand()%(screenHeight-150));
-            spawnChar(50, 150);
-            mainChar->startAction(NOACTION, NULL);
+            mainChar->endAction();
+            mainChar->setCloned(true);
+            clones.push_back(mainChar);
             
-            //Copy current action queue to new clone
-            unsigned last = (unsigned)(clones.size()-1);
-            clones[last]->copyActionQueue(mainChar->getActionQueue());
-            clones[last]->copyTimeQueue(mainChar->getTimeQueue());
-            clones[last]->copyArgsQueue(mainChar->getArgsQueue());
+            mainChar = spawnChar(spawnX, spawnY);
+            mainChar->setCloned(false);
             
-            //Empty old action queue
-            mainChar->clearQueue();
+            //Reset clones spawn point
+            for(int i = 0; i < clones.size(); i++)
+                clones[i]->setPosition(spawnX, spawnY);
         }
-        
-        mainChar->endAction();
-        mainChar->startAction(STAND, NULL);
     }
-    else if(type_ == KEYDOWN)
+    else if(type_ == KEYDOWN || type_ == KEYHOLD)
     {
         switch (code_)
         {
@@ -100,7 +98,7 @@ void Level::handleEvents(EventType type_, EventCode code_)
     }
     else //no event has occured
     {
-        //mainChar->startAction(STAND, NULL);
+        mainChar->startAction(STAND, NULL);
     }
     
 }
@@ -111,11 +109,11 @@ void Level::logic()
     int screenWidth = engine->getGraphicsModule()->getScreenWidth();
     int screenHeight = engine->getGraphicsModule()->getScreenHeight();
     
-    Game::writeToOutput("player pos: ");
+    /*Game::writeToOutput("player pos: ");
     Game::writeToOutput(mainChar->getPosition().getX());
     Game::writeToOutput(" ");
     Game::writeToOutput(mainChar->getPosition().getY());
-    Game::writeToOutput("\n");
+    Game::writeToOutput("\n");*/
     
     //Apply gravity
     for(int i = -1; i < (int)clones.size(); i++)
@@ -136,21 +134,6 @@ void Level::logic()
         
         p->setPosition(newPos);
         p->update();
-        
-        if(i >= 0)
-        {
-            //Follow the actions on the queue, watching the time
-            Action currentAction = NOACTION;
-            int currentTimeFrame = 0;
-            int *currentArgs = NULL;
-            
-            clones[i]->getAction(&currentAction, &currentTimeFrame, currentArgs);
-            if(currentAction == NOACTION)
-            {
-                //delete clones[i];
-                //clones.erase(clones.begin()+i);
-            }
-        }
     }
     
 }
@@ -169,9 +152,9 @@ void Level::render()
     controller->addToQueue(mainChar->getSprite());
 }
 
-void Level::spawnChar(int posX_, int posY_)
+Player* Level::spawnChar(int posX_, int posY_)
 {
-    clones.push_back(new Player(posX_, posY_));
+    return new Player(posX_, posY_);
 }
 
 
