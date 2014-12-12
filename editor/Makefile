@@ -1,19 +1,31 @@
-all: clean quick run
+CC = g++ 
+CCFLAGS = -Wall
+SOURCES = main.cpp control.cpp map.cpp view.cpp image.cpp debug.cpp
+LDFLAGS = -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer
+OBJECTS=$(SOURCES:.cpp=.o)
+EXEC = exec
 
-quick: main.o editor_mapa.o sdl_basics.o
-	@g++ main.o editor_mapa.o sdl_basics.o -o exec -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer
+all:clean create run 
 
-main.o: main.cpp
-	@g++ -c main.cpp -Wall
-
-editor_mapa.o: editor_mapa.cpp
-	@g++ -c editor_mapa.cpp -Wall
-
-sdl_basics.o: sdl_basics.cpp
-	@g++ -c sdl_basics.cpp -Wall
+perfect: cls reset clean create run cls cat
 	
-run: 
-	@./exec
+create:$(OBJECTS)
+	@$(CC) $(CCFLAGS) $(OBJECTS) $(LDFLAGS) -o $(EXEC)
+
+run:
+	@./$(EXEC) 
+
+reset:
+	@reset
+
+cat:
+	@cat log.out
+
+cls:
+	@clear
 
 clean:
-	@rm -rf *.o *exec
+	@rm -f *.o *$(EXEC) *~ *.out *.out.*
+
+massif:
+	 valgrind --tool=massif --time-unit=ms ./$(EXEC)
